@@ -1,0 +1,1398 @@
+/* ========================================================================== 
+   EcoPulse — final editorial product polish
+   Inspired by the supplied Steep reference, adapted to an environmental
+   learning product instead of copied as a brand skin.
+   ========================================================================== */
+
+:root {
+  --ep-paper: var(--surface-canvas);
+  --ep-fog: var(--surface-section-fog);
+  --ep-mist: var(--surface-card-mist);
+  --ep-ink: var(--color-ink-black);
+  --ep-muted: #70747d;
+  --ep-hairline: rgba(23, 25, 28, .09);
+  --ep-hairline-strong: rgba(23, 25, 28, .15);
+  --ep-green: #35cf72;
+  --ep-green-soft: #eaf8ee;
+  --ep-green-ink: #155e35;
+  --ep-peach: #fbe1d1;
+  --ep-blue: #edf3fc;
+  --ep-radius-card: 24px;
+  --ep-radius-artifact: 20px;
+  --ep-radius-control: 999px;
+  --ep-section-space: clamp(84px, 9vw, 144px);
+}
+
+html {
+  color-scheme: light;
+  scroll-padding-top: 88px;
+  background: var(--ep-paper);
+}
+
+body {
+  background: var(--ep-paper);
+  color: var(--ep-ink);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--ep-green) 34%, white);
+  color: var(--ep-ink);
+}
+
+:is(a, button, input, textarea, select) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:is(h1, h2, h3) {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.section-shell {
+  width: min(calc(100% - (var(--page-padding) * 2)), 1200px);
+}
+
+.eyebrow,
+.eyebrow--dark {
+  color: var(--ep-muted);
+  font-family: var(--font-sohne);
+  font-size: 13px;
+  font-weight: 430;
+  line-height: 1.25;
+  letter-spacing: -.005em;
+  text-transform: none;
+}
+
+.button {
+  min-height: 46px;
+  padding-inline: 20px;
+  border-radius: var(--ep-radius-control);
+  font-family: var(--font-sohne);
+  font-size: 15px;
+  font-weight: 430;
+  letter-spacing: -.01em;
+  box-shadow: none;
+}
+
+.button--dark,
+.button--pulse {
+  border-color: var(--ep-ink);
+  background: var(--ep-ink);
+  color: white;
+}
+
+.button--ghost {
+  border-color: var(--ep-hairline-strong);
+  background: rgba(255,255,255,.52);
+  color: var(--ep-ink);
+}
+
+.button--light {
+  border-color: rgba(255,255,255,.72);
+}
+
+.button:active:not(:disabled) {
+  scale: .985;
+}
+
+.text-link {
+  font-weight: 430;
+  text-decoration: none;
+  text-underline-offset: 5px;
+}
+
+/* --------------------------------------------------------------------------
+   Navigation — quiet on desktop, a deliberate editorial sheet on mobile
+   -------------------------------------------------------------------------- */
+
+.app-nav.editorial-nav {
+  z-index: 250;
+  min-height: 66px;
+  width: min(calc(100% - (var(--page-padding) * 2)), 1200px);
+  margin-inline: auto;
+  padding: 0;
+  grid-template-columns: 1fr minmax(0, auto) 1fr;
+  column-gap: clamp(24px, 4vw, 64px);
+  background: color-mix(in srgb, white 91%, transparent);
+  border-bottom: 1px solid transparent;
+  -webkit-backdrop-filter: blur(18px) saturate(1.04);
+  backdrop-filter: blur(18px) saturate(1.04);
+}
+
+html[data-scrolled='true'] .app-nav.editorial-nav {
+  border-bottom-color: var(--ep-hairline);
+}
+
+.editorial-nav__brand {
+  justify-self: start;
+  gap: 9px;
+  color: var(--ep-ink);
+  font-family: var(--font-sohne);
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -.035em;
+  view-transition-name: ecopulse-brand;
+}
+
+.editorial-nav__brand .pulse-heart {
+  color: var(--ep-green);
+}
+
+.editorial-nav__desktop-links {
+  justify-self: center;
+  gap: clamp(19px, 2.1vw, 31px);
+}
+
+.editorial-nav__desktop-links a {
+  min-height: 42px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  color: #60636a;
+  font-size: 14px;
+  font-weight: 430;
+  letter-spacing: -.012em;
+  overflow: visible;
+}
+
+.editorial-nav__desktop-links a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  right: auto;
+  bottom: 3px;
+  width: 0;
+  height: 2px;
+  border-radius: 99px;
+  background: var(--ep-ink);
+  transform: translateX(-50%);
+  opacity: .9;
+}
+
+.editorial-nav__desktop-links a:hover {
+  color: var(--ep-ink);
+}
+
+.editorial-nav__desktop-links a:hover::after {
+  left: 50%;
+  right: auto;
+  width: 14px;
+}
+
+.editorial-nav__desktop-links a[aria-current='page'] {
+  color: var(--ep-ink);
+}
+
+.editorial-nav__desktop-links a[aria-current='page']::after {
+  left: 50%;
+  right: auto;
+  width: 18px;
+  background: var(--ep-green);
+}
+
+.editorial-nav__actions {
+  justify-self: end;
+  gap: 10px;
+}
+
+.editorial-nav__method {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--ep-ink);
+  font-size: 14px;
+  font-weight: 430;
+}
+
+.nav-language-toggle {
+  height: 36px;
+  padding: 3px;
+  border: 1px solid var(--ep-hairline);
+  border-radius: var(--ep-radius-control);
+  background: var(--ep-mist);
+}
+
+.nav-language-toggle button {
+  min-width: 34px;
+  border-radius: var(--ep-radius-control);
+  color: #777b83;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .025em;
+}
+
+.nav-language-toggle button[aria-pressed='true'] {
+  background: white;
+  color: var(--ep-ink);
+  box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 3px 9px rgba(0,0,0,.06);
+}
+
+.editorial-nav__start {
+  min-height: 38px;
+  padding: 0 17px;
+  border: 1px solid var(--ep-ink);
+  border-radius: var(--ep-radius-control);
+  background: var(--ep-ink);
+  color: white;
+  font-size: 14px;
+  font-weight: 430;
+}
+
+.nav-menu-toggle {
+  border: 1px solid var(--ep-hairline);
+  background: white;
+}
+
+.editorial-nav__mobile-panel {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.editorial-nav__mobile-head > div:first-child {
+  display: grid;
+  gap: 2px;
+}
+
+.editorial-nav__mobile-head strong {
+  color: var(--ep-ink);
+  font-family: var(--font-signifier);
+  font-size: 23px;
+  font-weight: 400;
+  letter-spacing: -.03em;
+}
+
+.editorial-nav__mobile-kicker {
+  color: var(--color-ash-gray);
+  font-size: 10px;
+  font-weight: 430;
+  line-height: 1.1;
+  letter-spacing: .01em;
+  text-transform: none;
+}
+
+.editorial-nav__mobile-close {
+  flex: 0 0 auto;
+}
+
+.editorial-nav__mobile-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.editorial-nav__mobile-note p {
+  max-width: 280px;
+  margin: 0;
+  color: var(--ep-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.editorial-nav__mobile-footer > div:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Home signature composition
+   -------------------------------------------------------------------------- */
+
+.home-hero--editorial {
+  min-height: min(920px, 100svh);
+  padding-inline: var(--page-padding);
+  background: var(--ep-paper);
+}
+
+.home-hero__wash {
+  inset: 66px -12vw 23%;
+  background:
+    radial-gradient(ellipse at 54% 33%, rgba(251,225,209,.64), transparent 42%),
+    radial-gradient(ellipse at 38% 43%, rgba(216,234,252,.46), transparent 42%),
+    radial-gradient(ellipse at 68% 49%, rgba(219,246,226,.42), transparent 38%);
+  filter: saturate(.82);
+}
+
+.home-hero__editorial-copy {
+  width: min(100%, 1040px);
+  padding-top: clamp(74px, 8vh, 112px);
+}
+
+.home-hero--editorial .home-hero__eyebrow {
+  margin-bottom: 12px;
+  color: #656971;
+}
+
+.home-hero__pulse-signature {
+  width: 38px;
+  height: 8px;
+  margin: 0 auto 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+}
+
+.home-hero__pulse-signature i {
+  width: 26px;
+  height: 1px;
+  background: var(--ep-hairline-strong);
+}
+
+.home-hero__pulse-signature b {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ep-green);
+  box-shadow: 0 0 0 5px rgba(53,207,114,.08);
+}
+
+.home-hero--editorial h1 {
+  max-width: 980px;
+  margin-inline: auto;
+  font-family: var(--font-signifier);
+  font-size: clamp(70px, 7vw, 96px);
+  font-weight: 400;
+  line-height: .94;
+  letter-spacing: -.048em;
+}
+
+.home-hero--editorial .home-hero__title-line--3 i {
+  color: var(--ep-ink);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.home-hero--editorial .home-hero__lede {
+  width: min(100%, 620px);
+  margin-top: 25px;
+  color: #555a62;
+  font-size: 17px;
+  line-height: 1.52;
+}
+
+.home-hero--editorial .home-hero__actions {
+  margin-top: 25px;
+  gap: 9px;
+}
+
+.home-hero--editorial .button--hero {
+  min-height: 46px;
+  min-width: 154px;
+  justify-content: center;
+}
+
+.home-hero__artifact-stage {
+  width: min(100%, 1200px);
+  height: 352px;
+  margin-top: -4px;
+}
+
+.home-artifact {
+  border: 1px solid rgba(4,23,43,.045);
+  border-radius: var(--ep-radius-artifact);
+  box-shadow: 0 22px 45px -28px rgba(23,25,28,.30), 0 7px 18px -12px rgba(23,25,28,.16);
+}
+
+.home-artifact > span,
+.home-artifact__head > span {
+  color: #787d86;
+  font-size: 11px;
+  font-weight: 430;
+  letter-spacing: -.005em;
+  text-transform: none;
+}
+
+.home-artifact p {
+  color: #676c75;
+}
+
+.home-artifact--topics {
+  background: var(--ep-green-soft);
+}
+
+.home-artifact__topic-list span {
+  color: #4c6656;
+}
+
+.home-artifact--arcade {
+  background: var(--ep-peach);
+}
+
+.home-artifact--language {
+  background: white;
+}
+
+.home-artifact--access {
+  background: var(--ep-mist);
+}
+
+.home-artifact--earth {
+  border-color: rgba(255,255,255,.08);
+  background: #0f1720;
+  box-shadow: 0 30px 60px -36px rgba(7,14,22,.7);
+}
+
+.home-artifact--access a {
+  position: relative;
+  font-weight: 500;
+}
+
+.home-hero--editorial .home-hero__footer {
+  color: #81858d;
+  letter-spacing: .02em;
+  text-transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Product typography and section rhythm
+   -------------------------------------------------------------------------- */
+
+.home-welcome,
+.home-topics,
+.connection-preview,
+.home-learning-demo,
+.learning-loop,
+.action-section,
+.home-final-cta,
+.learn-orientation,
+.learn-next,
+.learn-worlds,
+.learn-journey,
+.world-checkpoints,
+.learn-topic-atlas,
+.topic-lab__hero,
+.topic-lab__briefing,
+.topic-lab__reading,
+.topic-lab__words,
+.topic-lab__connections,
+.topic-lab__sources,
+.topic-lab__reading-check,
+.topic-lab__system-check,
+.topic-lab__session-recap,
+.eco-arcade-hub,
+.eco-arcade,
+.action-cockpit,
+.missions-section,
+.challenges-hero,
+.challenges-list-section,
+.pulse-hero,
+.pulse-metrics,
+.pulse-balance,
+.pulse-focus-compass,
+.pulse-momentum,
+.review-shell,
+.settings-shell,
+.settings-data {
+  border-color: var(--ep-hairline);
+}
+
+:is(
+  .home-welcome h2,
+  .home-topics h2,
+  .connection-preview h2,
+  .home-learning-demo h2,
+  .learning-loop h2,
+  .action-section h2,
+  .home-final-cta h2,
+  .learn-next h1,
+  .learn-journey h2,
+  .learn-topic-atlas__heading h2,
+  .pulse-hero h1,
+  .pulse-balance h2,
+  .pulse-focus-compass h2,
+  .review-shell h1,
+  .challenges-hero h1,
+  .explore-hero h1,
+  .settings-intro h1,
+  .topic-lab__hero h1,
+  .topic-lab__section-heading h2,
+  .world-detail-hero h1,
+  .concept-detail-hero h1
+) {
+  font-family: var(--font-signifier);
+  font-weight: 400;
+  line-height: 1.01;
+  letter-spacing: -.043em;
+}
+
+:is(.topic-card, .learn-topic-atlas__card, .topic-lab__reading-card, .topic-lab__vocab-card, .eco-arcade-hub__mode, .mission-card, .world-challenge-card, .pulse-metrics article, .pulse-balance__grid article, .pulse-momentum article, .settings-group, .settings-data__item) {
+  border-color: var(--ep-hairline);
+}
+
+:is(.topic-card, .learn-topic-atlas__card, .topic-lab__reading-card, .topic-lab__vocab-card, .eco-arcade-hub__mode, .pulse-metrics article, .pulse-balance__grid article, .pulse-momentum article, .settings-group) {
+  box-shadow: none;
+}
+
+:is(.topic-card, .learn-topic-atlas__card) {
+  overflow: clip;
+}
+
+:is(.topic-card__action, .world-challenge-card__action a, .home-artifact--access a, .text-link) {
+  text-underline-offset: 4px;
+}
+
+/* Forms and learning controls should feel like product UI, not browser defaults. */
+:is(textarea, input, select) {
+  border-radius: var(--radius-inputs);
+  border-color: var(--ep-hairline-strong);
+  background: white;
+  color: var(--ep-ink);
+  font-family: var(--font-sohne);
+}
+
+:is(textarea, input, select):focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--ep-green) 60%, var(--ep-ink));
+  outline-offset: 2px;
+  border-color: transparent;
+}
+
+:is(.arcade-choice, .topic-lab__quick-check-option, .topic-lab__reading-check-option, .topic-lab__system-option, .review-options button, .choice-card, .settings-options button, .onboarding-options button) {
+  border-color: var(--ep-hairline);
+  box-shadow: none;
+}
+
+:is(.arcade-choice, .topic-lab__quick-check-option, .topic-lab__reading-check-option, .topic-lab__system-option, .review-options button, .choice-card):hover {
+  border-color: var(--ep-hairline-strong);
+}
+
+/* --------------------------------------------------------------------------
+   Tablet
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1050px) {
+  .app-nav.editorial-nav {
+    grid-template-columns: 1fr auto;
+    width: min(calc(100% - 40px), 960px);
+  }
+
+  .home-hero--editorial h1 {
+    font-size: clamp(64px, 8.7vw, 86px);
+  }
+
+  .home-artifact--topics { left: 0; }
+  .home-artifact--arcade { right: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile — purpose-built composition
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  :root {
+    --page-padding: 20px;
+    --ep-section-space: 68px;
+  }
+
+  html {
+    scroll-padding-top: 76px;
+  }
+
+  .app-nav.editorial-nav {
+    width: calc(100% - 32px);
+    min-height: 60px;
+    margin-inline: 16px;
+    grid-template-columns: minmax(0,1fr) auto;
+    border-bottom: 0;
+    background: color-mix(in srgb, white 92%, transparent);
+  }
+
+  html[data-scrolled='true'] .app-nav.editorial-nav {
+    border-bottom: 0;
+  }
+
+  .editorial-nav__brand {
+    font-size: 18px;
+    letter-spacing: -.03em;
+  }
+
+  .editorial-nav__actions {
+    gap: 6px;
+  }
+
+  .nav-language-toggle {
+    height: 34px;
+  }
+
+  .nav-menu-toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .editorial-nav__mobile-panel {
+    padding:
+      max(16px, env(safe-area-inset-top))
+      max(18px, env(safe-area-inset-right))
+      max(22px, env(safe-area-inset-bottom))
+      max(18px, env(safe-area-inset-left));
+    background:
+      radial-gradient(circle at 85% 10%, rgba(229,247,235,.82), transparent 30%),
+      radial-gradient(circle at 20% 84%, rgba(251,225,209,.50), transparent 36%),
+      rgba(255,255,255,.985);
+  }
+
+  .editorial-nav__mobile-head {
+    min-height: 62px;
+    padding-bottom: 12px;
+    align-items: flex-start;
+    border-bottom-color: var(--ep-hairline);
+  }
+
+  .editorial-nav__mobile-head strong {
+    font-size: 24px;
+  }
+
+  .editorial-nav__mobile-links {
+    margin-top: 10px;
+  }
+
+  .editorial-nav__mobile-links a,
+  .editorial-nav__mobile-links .app-nav__challenge-shortcut {
+    min-height: 70px;
+    padding-block: 10px;
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    grid-template-areas: 'kicker arrow' 'title arrow';
+    column-gap: 12px;
+    align-items: center;
+    border-bottom: 1px solid var(--ep-hairline);
+  }
+
+  .editorial-nav__mobile-links a > .editorial-nav__mobile-kicker {
+    grid-area: kicker;
+    align-self: end;
+  }
+
+  .editorial-nav__mobile-links a > strong {
+    grid-area: title;
+    align-self: start;
+    font-size: clamp(27px, 8vw, 34px);
+    line-height: 1;
+    letter-spacing: -.04em;
+  }
+
+  .editorial-nav__mobile-links a > i {
+    grid-area: arrow;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--ep-hairline);
+    border-radius: 50%;
+    font-size: 14px;
+  }
+
+  .editorial-nav__mobile-footer {
+    padding-top: 18px;
+    display: grid;
+    gap: 14px;
+    border-top: 0;
+  }
+
+  .home-hero--editorial {
+    min-height: auto;
+    padding: 0 20px 24px;
+  }
+
+  .home-hero__wash {
+    inset: 60px -45vw 36%;
+    background:
+      radial-gradient(ellipse at 50% 20%, rgba(251,225,209,.64), transparent 48%),
+      radial-gradient(ellipse at 70% 62%, rgba(221,246,228,.54), transparent 42%);
+  }
+
+  .home-hero__editorial-copy {
+    padding-top: 44px;
+    text-align: left;
+  }
+
+  .home-hero--editorial .home-hero__eyebrow {
+    margin-bottom: 12px;
+    font-size: 12px;
+  }
+
+  .home-hero__pulse-signature {
+    margin: 0 0 17px;
+  }
+
+  .home-hero--editorial h1 {
+    max-width: 12ch;
+    margin-inline: 0;
+    font-size: clamp(44px, 12.8vw, 58px);
+    line-height: .94;
+    letter-spacing: -.046em;
+  }
+
+  .home-hero--editorial .home-hero__title-line--3 i {
+    color: var(--ep-ink);
+  }
+
+  .home-hero--editorial .home-hero__lede {
+    max-width: 35ch;
+    margin: 20px 0 0;
+    font-size: 15.5px;
+    line-height: 1.52;
+  }
+
+  .home-hero--editorial .home-hero__actions {
+    width: 100%;
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .home-hero--editorial .button--hero {
+    min-height: 50px;
+    width: 100%;
+    padding-inline: 18px;
+    justify-content: space-between;
+  }
+
+  .home-hero--editorial .button--hero::after {
+    content: '↗';
+    font-size: 15px;
+    transition: translate var(--motion-ui) var(--ease-expo);
+  }
+
+  .home-hero__artifact-stage {
+    height: auto;
+    margin-top: 34px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 8px;
+  }
+
+  .home-artifact {
+    position: relative;
+    inset: auto;
+    width: auto;
+    min-width: 0;
+    border-radius: 18px;
+    box-shadow: 0 16px 34px -26px rgba(23,25,28,.32), 0 4px 12px -9px rgba(23,25,28,.14);
+  }
+
+  .home-artifact--topics,
+  .home-artifact--arcade {
+    min-height: 156px;
+    padding: 14px;
+  }
+
+  .home-artifact--language,
+  .home-artifact--access {
+    min-height: 122px;
+    padding: 14px;
+  }
+
+  .home-artifact--earth {
+    height: clamp(160px, 44vw, 188px);
+    grid-column: 1 / -1;
+    transform: none;
+  }
+
+  .home-artifact__topic-list {
+    margin: 14px 0 10px;
+  }
+
+  .home-artifact p {
+    font-size: 10.5px;
+  }
+
+  .home-hero--editorial .home-hero__footer {
+    margin-top: 14px;
+    font-size: 9px;
+  }
+
+  :is(
+    .home-welcome,
+    .home-topics,
+    .connection-preview,
+    .home-learning-demo,
+    .learning-loop,
+    .action-section,
+    .home-final-cta,
+    .learn-orientation,
+    .learn-next,
+    .learn-worlds,
+    .learn-journey,
+    .world-checkpoints,
+    .topic-lab__hero,
+    .topic-lab__briefing,
+    .topic-lab__reading,
+    .topic-lab__words,
+    .topic-lab__connections,
+    .topic-lab__sources,
+    .topic-lab__reading-check,
+    .topic-lab__system-check,
+    .topic-lab__session-recap,
+    .eco-arcade-hub,
+    .eco-arcade,
+    .action-cockpit,
+    .missions-section,
+    .challenges-hero,
+    .challenges-list-section,
+    .pulse-hero,
+    .pulse-metrics,
+    .pulse-balance,
+    .pulse-focus-compass,
+    .pulse-momentum,
+    .settings-shell,
+    .settings-data
+  ) {
+    padding-block: var(--ep-section-space);
+  }
+
+  :is(
+    .home-welcome h2,
+    .home-topics h2,
+    .connection-preview h2,
+    .home-learning-demo h2,
+    .learning-loop h2,
+    .action-section h2,
+    .home-final-cta h2,
+    .learn-next h1,
+    .learn-journey h2,
+    .learn-topic-atlas__heading h2,
+    .pulse-hero h1,
+    .pulse-balance h2,
+    .pulse-focus-compass h2,
+    .review-shell h1,
+    .challenges-hero h1,
+    .explore-hero h1,
+    .settings-intro h1,
+    .topic-lab__hero h1,
+    .topic-lab__section-heading h2,
+    .world-detail-hero h1,
+    .concept-detail-hero h1
+  ) {
+    font-size: clamp(37px, 10.6vw, 52px) !important;
+    line-height: 1 !important;
+    letter-spacing: -.042em !important;
+  }
+
+  .topic-card,
+  .learn-topic-atlas__card,
+  .topic-lab__reading-card,
+  .topic-lab__vocab-card,
+  .eco-arcade-hub__mode,
+  .mission-card,
+  .world-challenge-card,
+  .pulse-metrics article,
+  .pulse-balance__grid article,
+  .pulse-momentum article,
+  .settings-group {
+    border-radius: 18px;
+  }
+
+  .topic-lab__rail {
+    top: 7px;
+    max-width: calc(100vw - 12px);
+    border: 1px solid var(--ep-hairline);
+    background: rgba(250,250,251,.92);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+
+  .eco-arcade-hub__mode-grid,
+  .eco-arcade-tabs {
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: 20px;
+  }
+
+  .choice-card,
+  .arcade-choice,
+  .topic-lab__quick-check-option,
+  .topic-lab__reading-check-option,
+  .topic-lab__system-option {
+    min-height: 64px;
+  }
+}
+
+@media (max-width: 430px) {
+  :root {
+    --page-padding: 18px;
+    --ep-section-space: 62px;
+  }
+
+  .app-nav.editorial-nav {
+    width: calc(100% - 28px);
+    margin-inline: 14px;
+  }
+
+  .home-hero--editorial {
+    padding-inline: 18px;
+  }
+
+  .home-hero__editorial-copy {
+    padding-top: 38px;
+  }
+
+  .home-hero--editorial h1 {
+    font-size: clamp(43px, 12.4vw, 53px);
+  }
+
+  .home-hero__artifact-stage {
+    margin-top: 30px;
+  }
+
+  .home-artifact--topics,
+  .home-artifact--arcade,
+  .home-artifact--language,
+  .home-artifact--access {
+    padding: 13px;
+  }
+
+  .editorial-nav__mobile-links a,
+  .editorial-nav__mobile-links .app-nav__challenge-shortcut {
+    min-height: 66px;
+  }
+}
+
+@media (max-width: 390px) {
+  :root {
+    --page-padding: 16px;
+    --ep-section-space: 58px;
+  }
+
+  .app-nav.editorial-nav {
+    width: calc(100% - 24px);
+    margin-inline: 12px;
+  }
+
+  .home-hero--editorial {
+    padding-inline: 16px;
+  }
+
+  .home-hero--editorial h1 {
+    max-width: 11.5ch;
+    font-size: clamp(40px, 12.2vw, 48px);
+  }
+
+  .home-hero--editorial .home-hero__lede {
+    font-size: 15px;
+  }
+
+  .home-artifact--topics,
+  .home-artifact--arcade {
+    min-height: 150px;
+  }
+
+  .home-artifact--language,
+  .home-artifact--access {
+    min-height: 116px;
+  }
+
+  .home-artifact--earth {
+    height: 158px;
+  }
+
+  .editorial-nav__mobile-links a > strong {
+    font-size: 27px;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --page-padding: 14px;
+    --ep-section-space: 54px;
+  }
+
+  .app-nav.editorial-nav {
+    width: calc(100% - 20px);
+    margin-inline: 10px;
+  }
+
+  .editorial-nav__brand {
+    font-size: 17px;
+  }
+
+  .nav-language-toggle button {
+    min-width: 29px;
+    padding-inline: 4px;
+  }
+
+  .home-hero--editorial {
+    padding-inline: 14px;
+  }
+
+  .home-hero__editorial-copy {
+    padding-top: 34px;
+  }
+
+  .home-hero--editorial h1 {
+    font-size: 39px;
+  }
+
+  .home-hero--editorial .home-hero__lede {
+    max-width: 34ch;
+    font-size: 14.5px;
+  }
+
+  .home-hero__artifact-stage {
+    gap: 7px;
+  }
+
+  .home-artifact--topics,
+  .home-artifact--arcade {
+    min-height: 144px;
+  }
+
+  .home-artifact--language,
+  .home-artifact--access {
+    min-height: 112px;
+  }
+
+  .home-artifact--earth {
+    height: 150px;
+  }
+
+  .editorial-nav__mobile-links a,
+  .editorial-nav__mobile-links .app-nav__challenge-shortcut {
+    min-height: 62px;
+  }
+
+  .editorial-nav__mobile-links a > strong {
+    font-size: 25px;
+  }
+}
+
+/* ========================================================================== 
+   Awwwards product pass — every core surface gets its own hierarchy.
+   This stays restrained: flat paper for content, elevation only for the
+   artifact that carries the main interaction.
+   ========================================================================== */
+
+/* Learn — editorial copy beside one elevated learning instrument. */
+.learn-orientation__grid {
+  grid-template-columns: minmax(0, 6.7fr) minmax(340px, 5.3fr);
+  gap: clamp(48px, 8vw, 118px);
+  align-items: center;
+}
+
+.learn-orientation__copy > h1 {
+  max-width: 760px;
+}
+
+.learn-orientation__panel {
+  min-height: 470px;
+  padding: 24px;
+  border: 1px solid rgba(4,23,43,.055);
+  border-radius: var(--ep-radius-artifact);
+  background: white;
+  box-shadow: var(--shadow-subtle-3);
+  overflow: clip;
+  position: relative;
+}
+
+.learn-orientation__panel::before {
+  content: '';
+  position: absolute;
+  width: 270px;
+  aspect-ratio: 1;
+  right: -72px;
+  top: -82px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(53,207,114,.18), rgba(53,207,114,0) 68%);
+  pointer-events: none;
+}
+
+.learn-orientation__stats {
+  border-top: 1px solid var(--ep-hairline);
+}
+
+.learn-next__grid {
+  border-radius: var(--ep-radius-card);
+}
+
+.learn-topic-atlas__card:nth-child(4n + 2) {
+  background: var(--ep-mist);
+}
+
+/* Topic Labs — the visual is the product artifact, copy stays on paper. */
+.topic-lab__hero-grid {
+  grid-template-columns: minmax(0, 6.4fr) minmax(360px, 5.6fr);
+  gap: clamp(52px, 8vw, 118px);
+  align-items: center;
+}
+
+.topic-lab__visual {
+  border: 1px solid rgba(4,23,43,.055);
+  border-radius: var(--ep-radius-artifact);
+  background: white;
+  box-shadow: var(--shadow-subtle-3);
+  overflow: clip;
+}
+
+.topic-lab__reading-card,
+.topic-lab__vocab-card {
+  background: var(--ep-fog);
+}
+
+.topic-lab__reading-card:nth-child(2) {
+  background: color-mix(in srgb, var(--ep-peach) 72%, white);
+}
+
+.topic-lab__section-heading {
+  border-bottom: 1px solid var(--ep-hairline);
+}
+
+/* Eco Game — one contained interaction canvas, not a dashboard grid. */
+.eco-arcade-stage__board {
+  min-height: clamp(500px, 64vw, 690px);
+  border: 1px solid rgba(4,23,43,.055);
+  border-radius: var(--ep-radius-card);
+  background:
+    radial-gradient(circle at 92% 8%, rgba(53,207,114,.06), transparent 28%),
+    var(--ep-fog);
+  box-shadow: none;
+}
+
+.eco-arcade-tabs {
+  padding: 4px;
+  border: 1px solid var(--ep-hairline);
+  border-radius: var(--ep-radius-control);
+  background: var(--ep-mist);
+}
+
+.eco-arcade-tabs button {
+  border-radius: var(--ep-radius-control);
+}
+
+.eco-arcade-tabs button[aria-selected='true'] {
+  background: white;
+  box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 5px 14px rgba(0,0,0,.055);
+}
+
+.arcade-round {
+  border-radius: var(--ep-radius-artifact);
+}
+
+/* Eco Action — quiet editorial header with one tactile field instrument. */
+.action-cockpit__grid {
+  grid-template-columns: minmax(0, 6.8fr) minmax(350px, 5.2fr);
+  gap: clamp(54px, 8vw, 120px);
+}
+
+.action-cockpit__visual {
+  border: 1px solid rgba(4,23,43,.055);
+  border-radius: var(--ep-radius-artifact);
+  background: var(--ep-fog);
+  box-shadow: var(--shadow-subtle-3);
+  overflow: clip;
+}
+
+.mission-card {
+  border-radius: var(--ep-radius-card);
+  background: white;
+}
+
+.mission-card:nth-of-type(2n) {
+  background: var(--ep-fog);
+}
+
+.mission-card__steps li {
+  border-color: var(--ep-hairline);
+}
+
+/* Challenges — one warm editorial callout, then neutral queue cards. */
+.world-challenge-list__next {
+  border: 0;
+  border-radius: var(--ep-radius-card);
+  background: var(--ep-peach);
+  color: var(--color-sienna-brown);
+}
+
+.world-challenge-list__next > p {
+  color: color-mix(in srgb, var(--color-sienna-brown) 78%, transparent);
+}
+
+.world-challenge-list__filters {
+  border: 1px solid var(--ep-hairline);
+  border-radius: var(--ep-radius-control);
+  background: var(--ep-mist);
+}
+
+.world-challenge-list__filters button {
+  border-radius: var(--ep-radius-control);
+}
+
+.world-challenge-list__filters button[aria-pressed='true'] {
+  background: white;
+  color: var(--ep-ink);
+  box-shadow: 0 3px 10px rgba(0,0,0,.055);
+}
+
+.world-challenge-card {
+  background: white;
+  border-radius: var(--ep-radius-card);
+}
+
+/* Pulse — instrument + editorial explanation; no generic dashboard shadow pile. */
+.pulse-focus-compass__grid {
+  padding: clamp(28px, 5vw, 58px);
+  border: 1px solid var(--ep-hairline);
+  border-radius: var(--ep-radius-card);
+  background: var(--ep-fog);
+}
+
+.pulse-focus-compass__dial {
+  background: white;
+  box-shadow: var(--shadow-subtle-3);
+}
+
+.pulse-metrics article:nth-child(2) {
+  background: color-mix(in srgb, var(--ep-green-soft) 78%, white);
+}
+
+.pulse-momentum article {
+  background: var(--ep-fog);
+}
+
+/* Review and settings feel like the same quiet product, not utility fallbacks. */
+.review-shell {
+  width: min(calc(100% - (var(--page-padding) * 2)), 900px);
+  margin-inline: auto;
+}
+
+.review-item-focus {
+  border-radius: var(--ep-radius-card);
+}
+
+.review-options button,
+.review-recall-form input,
+.settings-group,
+.settings-data__item {
+  background: var(--ep-fog);
+}
+
+.settings-group {
+  border-radius: var(--ep-radius-card);
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.settings-options button[aria-pressed='true'] {
+  background: var(--ep-ink);
+  color: white;
+}
+
+/* Lessons — product-like floating header with clear progress and a calm stage. */
+.lesson-header {
+  min-height: 64px;
+  top: 8px;
+  width: min(calc(100% - 24px), 1180px);
+  margin: 8px auto 0;
+  padding-inline: clamp(14px, 2.4vw, 24px);
+  border: 1px solid var(--ep-hairline);
+  border-radius: var(--ep-radius-control);
+  background: rgba(255,255,255,.90);
+  -webkit-backdrop-filter: blur(18px) saturate(1.04);
+  backdrop-filter: blur(18px) saturate(1.04);
+  box-shadow: 0 8px 28px rgba(0,0,0,.045);
+}
+
+.lesson-header__back,
+.lesson-header__xp {
+  letter-spacing: -.005em;
+}
+
+.lesson-header__progress-track {
+  background: var(--ep-mist);
+}
+
+.lesson-header__progress-track > i {
+  background: var(--ep-green);
+}
+
+.lesson-stage {
+  background: var(--ep-paper);
+}
+
+.lesson-stage__inner {
+  position: relative;
+}
+
+.choice-card,
+.review-options button {
+  border-radius: 18px;
+  background: var(--ep-fog);
+}
+
+.choice-card:hover,
+.review-options button:hover {
+  background: white;
+}
+
+@media (max-width: 760px) {
+  .learn-orientation__grid,
+  .topic-lab__hero-grid,
+  .action-cockpit__grid,
+  .pulse-focus-compass__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .learn-orientation__panel {
+    min-height: 360px;
+  }
+
+  .topic-lab__visual,
+  .action-cockpit__visual {
+    min-height: 310px;
+  }
+
+  .eco-arcade-stage__board {
+    min-height: 470px;
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .eco-arcade-tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+
+  .eco-arcade-tabs::-webkit-scrollbar { display: none; }
+  .eco-arcade-tabs button { flex: 0 0 auto; scroll-snap-align: center; }
+
+  .world-challenge-list__filters {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .pulse-focus-compass__grid {
+    padding: 22px;
+  }
+
+  .lesson-header {
+    width: calc(100% - 16px);
+    min-height: 56px;
+    top: 6px;
+    margin-top: 6px;
+    grid-template-columns: minmax(0,1fr) auto;
+    gap: 10px;
+  }
+
+  .lesson-header__progress {
+    order: 3;
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .lesson-header__progress-track {
+    display: block;
+    width: 100%;
+  }
+
+  .lesson-progress-dot { display: none; }
+
+  .lesson-header__xp { justify-self: end; }
+}

@@ -1,0 +1,161 @@
+/* Bulk continuity — route motion, compact lesson progress, light detail surfaces, rendering containment */
+.route-transition-frame { min-height: 100%; animation: route-view-enter 520ms cubic-bezier(.16,1,.3,1) both; transform-origin: 50% 12%; }
+@keyframes route-view-enter {
+  from { opacity: 0; transform: translateY(10px) scale(.997); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+.lesson-header__progress-track { display:none; width:min(34vw,240px); height:5px; overflow:hidden; border-radius:999px; background:color-mix(in srgb,var(--ink),transparent 88%); }
+.lesson-header__progress-track > i { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--pulse),var(--ocean)); transition:width 360ms cubic-bezier(.2,.8,.2,1); }
+
+.challenge-shell { background: linear-gradient(145deg,#f8faf5 0%,#edf8f0 56%,#eef8fc 100%); color:var(--ink); }
+.challenge-shell .eyebrow:not(.eyebrow--dark) { color:color-mix(in srgb,var(--ink),transparent 42%); }
+.challenge-header { border-bottom-color:var(--line-dark); }
+.challenge-lede { color:color-mix(in srgb,var(--ink),transparent 20%); }
+.challenge-meta { color:color-mix(in srgb,var(--ink),transparent 45%); }
+.challenge-shell--intro { position:relative; overflow:hidden; }
+.challenge-shell--intro::before { content:''; position:fixed; width:min(55vw,760px); aspect-ratio:1; right:-18vw; top:12vh; border-radius:50%; border:1px solid rgba(66,216,115,.18); box-shadow:0 0 0 8vw rgba(88,187,215,.035),0 0 0 16vw rgba(66,216,115,.025); pointer-events:none; }
+.challenge-shell .challenge-language { background:rgba(255,255,255,.72); border-color:var(--line-dark); backdrop-filter:blur(16px); }
+.challenge-shell .language-chip { color:var(--ink); }
+.challenge-shell .language-chip--active { color:var(--cloud); }
+
+.product-page--mission-sunlit { min-height:100svh; background:radial-gradient(circle at 82% 18%,rgba(88,187,215,.19),transparent 24%),radial-gradient(circle at 18% 72%,rgba(66,216,115,.14),transparent 30%),linear-gradient(155deg,#fbfcf8,#eff8f1 62%,#f1f9fb); color:var(--ink); }
+.product-page--mission-sunlit .mission-focus__safety { color:color-mix(in srgb,var(--ink),transparent 42%); }
+.product-page--mission-sunlit .mission-focus__action { border-top-color:var(--line-dark); }
+.product-page--mission-sunlit .mission-focus__steps li { border-color:var(--line-dark); background:rgba(255,255,255,.62); box-shadow:0 18px 46px rgba(35,76,58,.045); }
+.product-page--mission-sunlit .mission-focus__steps--water li { background:color-mix(in srgb,var(--ocean),white 90%); }
+.product-page--mission-sunlit .mission-focus__steps--life li { background:#f1f8ee; }
+.product-page--mission-sunlit .mission-focus__steps--sky li { background:#eef8fc; }
+.product-page--mission-sunlit .mission-focus__steps--connection li { background:#fff8e9; }
+.product-page--mission-sunlit .mission-reflection-field { border-top-color:var(--line-dark); }
+.product-page--mission-sunlit .mission-reflection-field label > span,
+.product-page--mission-sunlit .mission-reflection-field__meta { color:color-mix(in srgb,var(--ink),transparent 50%); }
+.product-page--mission-sunlit .mission-reflection-field textarea { border-color:var(--line-dark); background:rgba(255,255,255,.72); color:var(--ink); }
+.product-page--mission-sunlit .mission-reflection-field textarea::placeholder { color:color-mix(in srgb,var(--ink),transparent 62%); }
+.product-page--mission-sunlit .mission-focus__complete span,
+.product-page--mission-sunlit .mission-focus__back { color:color-mix(in srgb,var(--ink),transparent 34%); }
+
+.learn-topic-atlas,
+.topic-lab__words,
+.topic-lab__connections,
+.eco-arcade-stage,
+.action-mission-section,
+.pulse-balance,
+.pulse-momentum,
+.world-checkpoints { content-visibility:auto; contain-intrinsic-size:1px 900px; }
+
+@media (max-width:700px) {
+  .lesson-header__progress { min-width:0; }
+  .lesson-header__progress > .lesson-progress-dot { display:none; }
+  .lesson-header__progress-track { display:block; width:min(42vw,180px); }
+  .challenge-shell--intro::before { width:95vw; right:-55vw; top:18vh; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .route-transition-frame { animation:none !important; }
+  .lesson-header__progress-track > i { transition:none !important; }
+}
+html[data-motion='reduced'] .route-transition-frame { animation:none !important; }
+html[data-motion='reduced'] .lesson-header__progress-track > i { transition:none !important; }
+
+/* Bulk continuity — keep hidden Challenges reachable on the five-cell mobile dock */
+.app-nav__challenge-shortcut { display:none; width:38px; height:38px; place-items:center; border:1px solid var(--line-dark); border-radius:50%; text-decoration:none; font-size:18px; line-height:1; transition:transform 180ms ease,background 180ms ease; }
+.app-nav__challenge-shortcut:hover { transform:translateY(-2px) rotate(8deg); background:#fff8e9; }
+.app-nav--inverse .app-nav__challenge-shortcut { border-color:var(--line-light); color:var(--cloud); }
+@media (max-width:700px) {
+  .app-nav__challenge-shortcut { display:grid; }
+}
+@media (prefers-reduced-motion:reduce) { .app-nav__challenge-shortcut { transition:none !important; } }
+html[data-motion='reduced'] .app-nav__challenge-shortcut { transition:none !important; }
+
+/* Bulk continuity — canonical worlds now remain predominantly sunlit */
+.product-page--world-sunlit { min-height:100svh; background:#f7faf5; color:var(--ink); }
+.product-page--world-sunlit .world-detail-loading { background:linear-gradient(145deg,#f7faf5,#eef8fc); color:var(--ink); }
+.product-page--world-sunlit .world-detail-hero { background:radial-gradient(circle at 78% 26%,rgba(88,187,215,.22),transparent 28%),radial-gradient(circle at 20% 82%,rgba(66,216,115,.13),transparent 32%),linear-gradient(150deg,#fbfcf8,#eff8f1 60%,#eef8fc); color:var(--ink); border-bottom-color:var(--line-dark); }
+.product-page--world-sunlit .world-detail-hero::before { border-color:color-mix(in srgb,var(--world-accent,var(--pulse)),transparent 70%); box-shadow:0 0 120px color-mix(in srgb,var(--world-accent,var(--ocean)),transparent 82%); opacity:.75; }
+.product-page--world-sunlit .world-detail-hero::after { opacity:.12; filter:blur(12px); }
+.product-page--world-sunlit .world-detail-hero .eyebrow,
+.product-page--world-sunlit .world-detail-meta { color:color-mix(in srgb,var(--ink),transparent 45%); }
+.product-page--world-sunlit .world-detail-hero__aside > p { color:color-mix(in srgb,var(--ink),transparent 17%); }
+.product-page--world-sunlit .world-detail-connections { background:linear-gradient(180deg,#eef8fc,#f4f9f5); color:var(--ink); }
+.product-page--world-sunlit .world-detail-connections .eyebrow { color:color-mix(in srgb,var(--ink),transparent 45%); }
+.product-page--world-sunlit .world-relation-list { border-top-color:var(--line-dark); }
+.product-page--world-sunlit .world-relation-list li { border-bottom-color:var(--line-dark); }
+.product-page--world-sunlit .world-relation-list span { color:color-mix(in srgb,var(--ink),transparent 54%); }
+.product-page--world-sunlit .world-relation-list em { color:#238e4b; }
+.product-page--world-sunlit .world-detail-checkpoint { background:linear-gradient(145deg,#fff8e9,#edf8f0); color:var(--ink); border-top-color:var(--line-dark); }
+.product-page--world-sunlit .world-detail-checkpoint--complete { background:linear-gradient(145deg,#e8f8ec,#eef8fc); }
+.product-page--world-sunlit .world-detail-checkpoint .eyebrow,
+.product-page--world-sunlit .world-detail-checkpoint .world-detail-meta,
+.product-page--world-sunlit .world-checkpoint-lock { color:color-mix(in srgb,var(--ink),transparent 43%); }
+.product-page--world-sunlit .world-detail-footer { background:var(--carbon); color:var(--cloud); border-top-color:var(--line-light); }
+
+/* Progressive enhancement: native view-timeline choreography, no scroll JS */
+@keyframes ecopulse-view-reveal {
+  from { opacity:.18; transform:translateY(24px) scale(.992); }
+  to { opacity:1; transform:translateY(0) scale(1); }
+}
+@supports (animation-timeline: view()) {
+  .learn-topic-atlas__card,
+  .topic-lab__vocab-card,
+  .topic-lab__connection-list article,
+  .world-relation-list li,
+  .world-lesson-row,
+  .mission-card,
+  .pulse-balance__metric {
+    animation:ecopulse-view-reveal linear both;
+    animation-timeline:view();
+    animation-range:entry 0% entry 42%;
+  }
+}
+
+/* Bulk continuity — sunlit onboarding and recovery states */
+.onboarding-shell { background:linear-gradient(145deg,#f8faf5 0%,#eef8fc 52%,#edf8f0 100%); color:var(--ink); }
+.onboarding-header { border-bottom-color:var(--line-dark); }
+.onboarding-options { border-top-color:var(--line-dark); }
+.onboarding-options button { border-right-color:var(--line-dark); border-bottom-color:var(--line-dark); }
+.onboarding-options button:hover,
+.onboarding-answer-list button:hover,
+.interest-option:hover { background:rgba(66,216,115,.09); }
+.onboarding-options small,
+.onboarding-note,
+.interest-option span,
+.onboarding-lede { color:color-mix(in srgb,var(--ink),transparent 40%); }
+.onboarding-answer-list { border-top-color:var(--line-dark); }
+.onboarding-answer-list button { border-bottom-color:var(--line-dark); }
+.interest-grid { border-top-color:var(--line-dark); border-bottom-color:var(--line-dark); }
+.interest-option { border-right-color:var(--line-dark); }
+.text-button { color:color-mix(in srgb,var(--ink),transparent 24%); }
+.onboarding-language button { border-color:var(--line-dark); color:var(--ink); }
+
+.not-found-page { background:linear-gradient(145deg,#f8faf5,#eef8fc 58%,#edf8f0); color:var(--ink); }
+.not-found-page__content > p:not(.eyebrow) { color:color-mix(in srgb,var(--ink),transparent 28%); }
+.not-found-page__actions .text-link { color:var(--ink); }
+.not-found-page .eyebrow { color:color-mix(in srgb,var(--ink),transparent 42%); }
+.runtime-loading { background:linear-gradient(145deg,#f8faf5,#eef8fc 58%,#edf8f0); color:var(--ink); }
+.runtime-loading .eyebrow { color:color-mix(in srgb,var(--ink),transparent 42%); }
+.runtime-loading__copy { color:color-mix(in srgb,var(--ink),transparent 24%); }
+
+/* Explore: light editorial framing around the intentionally dark graph instrument */
+.product-page--explore-sunlit { min-height:100svh; background:linear-gradient(180deg,#f8faf5,#eef8fc 62%,#f7faf5); color:var(--ink); }
+.product-page--explore-sunlit .explore-hero { position:relative; overflow:hidden; background:radial-gradient(circle at 80% 35%,rgba(88,187,215,.22),transparent 24%),radial-gradient(circle at 18% 80%,rgba(66,216,115,.12),transparent 27%); }
+.product-page--explore-sunlit .explore-hero::after { content:''; position:absolute; width:min(48vw,680px); aspect-ratio:1; right:-16vw; top:-22%; border:1px solid rgba(23,49,38,.12); border-radius:50%; box-shadow:0 0 0 6vw rgba(66,216,115,.03),0 0 0 12vw rgba(88,187,215,.025); pointer-events:none; }
+.product-page--explore-sunlit .explore-hero h1 { color:var(--ink); }
+.product-page--explore-sunlit .explore-hero .eyebrow { color:color-mix(in srgb,var(--ink),transparent 42%); }
+.product-page--explore-sunlit .explore-hero > .section-shell > p:last-child { color:color-mix(in srgb,var(--ink),transparent 28%); }
+.product-page--explore-sunlit .explore-map-section { padding-top:18px; }
+.product-page--explore-sunlit .knowledge-map { border-color:rgba(23,49,38,.18); border-radius:24px; background:radial-gradient(circle at 50% 48%,rgba(66,216,115,.08),transparent 34%),var(--carbon); box-shadow:0 35px 100px rgba(35,76,58,.11); }
+.product-page--explore-sunlit .knowledge-list { padding:20px; border:1px solid rgba(23,49,38,.15); border-radius:20px; background:var(--carbon); color:var(--cloud); }
+.product-page--explore-sunlit .knowledge-list article { border-bottom-color:var(--line-light); }
+.product-page--explore-sunlit .knowledge-list span { color:color-mix(in srgb,var(--cloud),transparent 50%); }
+.product-page--explore-sunlit .knowledge-list ul { color:color-mix(in srgb,var(--cloud),transparent 35%); }
+
+/* Bulk polish — keep My Progress ending in the sunlit system */
+.pulse-dashboard .next-action { background:linear-gradient(145deg,#edf8f0,#eef8fc); color:var(--ink); border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark); }
+.pulse-dashboard .next-action .eyebrow { color:color-mix(in srgb,var(--ink),transparent 42%); }
+.pulse-dashboard .pulse-settings-link { color:color-mix(in srgb,var(--ink),transparent 24%); }
+.pulse-dashboard__routes { padding:50px 0 90px; background:linear-gradient(180deg,#f8faf5,#fff8e9); color:var(--ink); }
+.pulse-dashboard__route-grid { border-top-color:var(--line-dark); }
+.pulse-dashboard__route-grid a,
+.pulse-dashboard__route-grid a:first-child { border-color:var(--line-dark); }
+.pulse-dashboard__route-grid a:hover { background:rgba(255,255,255,.64); }
+.pulse-dashboard__route-grid span { color:color-mix(in srgb,var(--ink),transparent 50%); }
+.arcade-word .pronunciation-control { margin-top:12px; }

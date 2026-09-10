@@ -1,0 +1,188 @@
+import type { ListeningStep } from '../domain/content/types.ts';
+
+export const listeningStepsByLessonSlug: Readonly<Record<string, ListeningStep>> = {
+  atmosphere: {
+    id: 'listening-atmosphere',
+    type: 'listening',
+    title: { en: 'Listen for the system', kk: 'Жүйені тыңдап тап' },
+    utterances: {
+      A2: 'The atmosphere is the layer of gases around Earth where familiar weather happens.',
+      B1: 'Earth’s atmosphere is a relatively thin layer of gases, and most familiar weather develops inside this surrounding layer.',
+      B2: 'Although Earth’s atmosphere extends far above the surface, it is thin compared with the whole planet and contains the region where most familiar weather develops.',
+    },
+    question: 'What does the speaker say about the atmosphere?',
+    answers: [
+      { id: 'gases-weather', text: 'It is a layer of gases around Earth connected with familiar weather.' },
+      { id: 'ocean-floor', text: 'It is a layer of salt water below the ocean floor.' },
+      { id: 'mountain-only', text: 'It describes only the height of mountains.' },
+    ],
+    correctAnswerId: 'gases-weather',
+    explanation: {
+      en: 'The speaker describes the atmosphere as a layer of gases around Earth and connects it with familiar weather.',
+      kk: 'Диктор атмосфераны Жерді қоршаған газдар қабаты ретінде сипаттап, оны таныс ауа райымен байланыстырады.',
+    },
+    masterySignals: [{ word: 'atmosphere', signal: 'context' }],
+    xp: 10,
+  },
+  'weather-climate': {
+    id: 'listening-weather-climate',
+    type: 'listening',
+    title: { en: 'Listen for the time scale', kk: 'Уақыт ауқымын тыңдап тап' },
+    utterances: {
+      A2: 'Rain today is weather. Climate describes usual weather patterns over many years.',
+      B1: 'Weather describes short-term conditions such as today’s rain or temperature, while climate describes patterns measured across many years.',
+      B2: 'Weather and climate can use the same measurements, but weather describes short-term conditions while climate summarizes longer-term patterns and variability across many years.',
+    },
+    question: 'What difference does the speaker emphasize?',
+    answers: [
+      { id: 'time-scale', text: 'Weather is short-term, while climate describes longer-term patterns.' },
+      { id: 'same-scale', text: 'Weather and climate always describe the same time scale.' },
+      { id: 'seasons', text: 'Weather is only summer and climate is only winter.' },
+    ],
+    correctAnswerId: 'time-scale',
+    explanation: {
+      en: 'The listening focuses on time scale: weather is short-term, while climate describes patterns over much longer periods.',
+      kk: 'Аудиода уақыт ауқымы негізгі айырмашылық ретінде беріледі: ауа райы қысқа мерзімді, ал климат әлдеқайда ұзақ кезеңдердегі заңдылықтарды сипаттайды.',
+    },
+    masterySignals: [{ word: 'weather', signal: 'context' }, { word: 'climate', signal: 'context' }],
+    xp: 10,
+  },
+  glaciers: {
+    id: 'listening-glaciers',
+    type: 'listening',
+    title: { en: 'Listen for glacier change', kk: 'Мұздық өзгерісін тыңда' },
+    utterances: {
+      A2: 'A glacier forms from snow on land, moves slowly, and can melt when it becomes warm enough.',
+      B1: 'A glacier forms as snow builds up on land over many years, and the ice can move slowly and melt when conditions are warm enough.',
+      B2: 'Glacier ice forms from long-term snow accumulation on land, flows slowly under gravity, and can lose mass through melting when the ice gains enough heat.',
+    },
+    question: 'Which statement matches the listening?',
+    answers: [
+      { id: 'land-ice', text: 'A glacier forms on land, can move slowly, and can melt.' },
+      { id: 'wind', text: 'A glacier is a fast-moving winter wind.' },
+      { id: 'saltwater', text: 'A glacier forms only from ocean salt water.' },
+    ],
+    correctAnswerId: 'land-ice',
+    explanation: {
+      en: 'The speaker describes glacier ice as land ice formed over time that can move slowly and melt.',
+      kk: 'Диктор мұздықты уақыт өте құрлықта түзілетін, баяу қозғалып, ери алатын мұз ретінде сипаттайды.',
+    },
+    masterySignals: [{ word: 'glacier', signal: 'context' }, { word: 'melt', signal: 'context' }],
+    xp: 10,
+  },
+  'sea-level': {
+    id: 'listening-sea-level',
+    type: 'listening',
+    title: { en: 'Listen for two contributors', kk: 'Екі ықпалды тыңдап тап' },
+    utterances: {
+      A2: 'Melting land ice adds water to the ocean, and warmer ocean water can expand.',
+      B1: 'Sea level can rise when melting land ice adds water to the ocean and when warmer seawater expands and takes up more space.',
+      B2: 'Two major contributors to global sea-level rise are water added by melting glaciers and ice sheets on land, and thermal expansion as ocean water warms.',
+    },
+    question: 'Which two processes does the speaker connect with sea-level rise?',
+    answers: [
+      { id: 'ice-expansion', text: 'Melting land ice and expansion of warming seawater.' },
+      { id: 'wind-only', text: 'Wind alone and the number of coastal buildings.' },
+      { id: 'sea-ice-only', text: 'Only the melting of floating sea ice.' },
+    ],
+    correctAnswerId: 'ice-expansion',
+    explanation: {
+      en: 'The speaker identifies added water from melting land ice and thermal expansion of warming seawater.',
+      kk: 'Диктор құрлық мұзының еруінен мұхитқа қосылатын суды және жылынған теңіз суының жылулық кеңеюін атайды.',
+    },
+    masterySignals: [{ word: 'sea level', signal: 'context' }, { word: 'coast', signal: 'context' }],
+    xp: 10,
+  },
+  drought: {
+    id: 'listening-drought',
+    type: 'listening',
+    title: { en: 'Listen for the definition', kk: 'Анықтаманы тыңда' },
+    utterances: {
+      A2: 'Drought is a long shortage compared with usual conditions. It does not always mean no rain.',
+      B1: 'A drought is a sustained shortage of water compared with normal conditions, and some rain can still fall during a drought.',
+      B2: 'Drought is a sustained shortage relative to normal conditions, often involving precipitation deficits and changing water availability, rather than a rule that no rain can fall at all.',
+    },
+    question: 'What does the speaker emphasize about drought?',
+    answers: [
+      { id: 'relative-shortage', text: 'It is a sustained shortage relative to usual conditions and can occur even if some rain falls.' },
+      { id: 'one-hour', text: 'Any single dry hour is automatically a drought.' },
+      { id: 'zero-rain', text: 'Drought always means absolutely no rain can fall.' },
+    ],
+    correctAnswerId: 'relative-shortage',
+    explanation: {
+      en: 'Drought is defined relative to usual conditions over time; it does not require absolutely zero rain.',
+      kk: 'Құрғақшылық уақыт бойынша әдеттегі жағдаймен салыстырылатын тапшылықпен анықталады; жаңбыр мүлде жаумауы міндетті емес.',
+    },
+    masterySignals: [{ word: 'drought', signal: 'context' }, { word: 'rainfall', signal: 'context' }],
+    xp: 10,
+  },
+  'wildfire-extreme-weather': {
+    id: 'listening-wildfire-risk',
+    type: 'listening',
+    title: { en: 'Listen for risk, not certainty', kk: 'Қауіпті тыңда, кепілдікті емес' },
+    utterances: {
+      A2: 'Dry vegetation can increase wildfire risk, but it does not mean a fire will definitely start.',
+      B1: 'Hot, dry conditions and dry vegetation can increase wildfire risk, but a higher risk does not guarantee that a fire will begin.',
+      B2: 'Drought and dry vegetation can contribute to greater wildfire risk, while ignition, wind, fuels, and other conditions also influence whether a fire starts and how it behaves.',
+    },
+    question: 'Which idea is most accurate?',
+    answers: [
+      { id: 'risk-not-guarantee', text: 'Dry conditions can increase wildfire risk without guaranteeing a wildfire.' },
+      { id: 'automatic', text: 'Every drought automatically causes a wildfire.' },
+      { id: 'no-relation', text: 'Dry vegetation cannot influence wildfire risk.' },
+    ],
+    correctAnswerId: 'risk-not-guarantee',
+    explanation: {
+      en: 'The listening distinguishes increased risk from certainty and leaves room for other factors that influence wildfire.',
+      kk: 'Аудио қауіптің артуын міндетті нәтиже деп қарастырмайды және табиғи өртке әсер ететін басқа факторларды да ескереді.',
+    },
+    masterySignals: [{ word: 'wildfire', signal: 'context' }, { word: 'extreme weather', signal: 'context' }],
+    xp: 10,
+  },
+  habitats: {
+    id: 'listening-habitats',
+    type: 'listening',
+    title: { en: 'Listen for the relationship', kk: 'Байланысты тыңдап тап' },
+    utterances: {
+      A2: 'A habitat is where an organism lives. An ecosystem includes living things and their environment interacting.',
+      B1: 'A habitat is the natural place an organism lives, while an ecosystem includes organisms and the surrounding environment interacting as a system.',
+      B2: 'A habitat describes the natural place an organism lives and finds what it needs, while an ecosystem describes interactions among organisms and the physical environment around them.',
+    },
+    question: 'How does the speaker distinguish habitat from ecosystem?',
+    answers: [
+      { id: 'place-system', text: 'Habitat is a living place; ecosystem includes interactions among organisms and their environment.' },
+      { id: 'same-word', text: 'Habitat and ecosystem always mean exactly the same thing.' },
+      { id: 'weather-only', text: 'Habitat describes weather and ecosystem describes only temperature.' },
+    ],
+    correctAnswerId: 'place-system',
+    explanation: {
+      en: 'The speaker treats habitat as the place an organism lives and ecosystem as the wider interacting system.',
+      kk: 'Диктор habitat ұғымын ағза өмір сүретін орын, ал ecosystem ұғымын кеңірек өзара әрекеттесетін жүйе ретінде ажыратады.',
+    },
+    masterySignals: [{ word: 'habitat', signal: 'context' }, { word: 'ecosystem', signal: 'context' }],
+    xp: 10,
+  },
+  'ocean-change': {
+    id: 'listening-ocean-change',
+    type: 'listening',
+    title: { en: 'Listen for precise wording', kk: 'Дәл тұжырымды тыңда' },
+    utterances: {
+      A2: 'Ocean acidification means seawater becomes more acidic. It does not mean the ocean becomes pure acid.',
+      B1: 'As the ocean absorbs carbon dioxide, seawater chemistry can change and pH can decrease, meaning the water becomes more acidic.',
+      B2: 'Ocean acidification describes a decrease in seawater pH as ocean chemistry changes after absorbing carbon dioxide; the term means more acidic conditions, not that seawater becomes literal acid.',
+    },
+    question: 'Which wording matches the listening?',
+    answers: [
+      { id: 'more-acidic', text: 'Seawater becomes more acidic as pH decreases; the ocean does not become literal acid.' },
+      { id: 'pure-acid', text: 'The entire ocean changes into pure acid.' },
+      { id: 'freezes', text: 'Ocean acidification means seawater instantly freezes.' },
+    ],
+    correctAnswerId: 'more-acidic',
+    explanation: {
+      en: 'The precise idea is “more acidic as pH decreases”; seawater remains alkaline overall.',
+      kk: 'Дәл тұжырым — «pH төмендеген сайын су қышқылдырақ болады»; «мұхит қышқылға айналады» деу дұрыс емес.',
+    },
+    masterySignals: [{ word: 'acidic', signal: 'context' }, { word: 'ocean', signal: 'context' }],
+    xp: 10,
+  },
+};

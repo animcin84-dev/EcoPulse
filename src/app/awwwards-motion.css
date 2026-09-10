@@ -1,0 +1,712 @@
+/* ========================================================================== 
+   EcoPulse — Awwwards motion direction
+   Native View Transitions + IntersectionObserver + pointer CSS variables.
+   The system deliberately avoids a blanket fade-up on every element.
+   ========================================================================== */
+
+:root {
+  --motion-micro: 150ms;
+  --motion-fast: 220ms;
+  --motion-ui: 320ms;
+  --motion-section: 720ms;
+  --motion-cinematic: 980ms;
+}
+
+/* Page progress is a quiet utility, not a decorative loader. */
+.site-scroll-progress {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.site-scroll-progress i {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: var(--ep-green, #35cf72);
+  transform: scaleX(var(--page-progress));
+  transform-origin: 0 50%;
+  opacity: .78;
+  will-change: transform;
+}
+
+/* Navigation responds to intent: down clears space, up returns controls. */
+.app-nav.editorial-nav {
+  transition:
+    transform var(--motion-ui) var(--ease-expo),
+    background-color var(--motion-ui) ease,
+    border-color var(--motion-ui) ease;
+}
+
+html[data-nav-state='hidden'] .app-nav.editorial-nav:not(:focus-within) {
+  transform: translateY(calc(-100% - 8px));
+}
+
+html[data-scroll-direction='up'] .app-nav.editorial-nav,
+html[data-scrolled='false'] .app-nav.editorial-nav {
+  transform: translateY(0);
+}
+
+.editorial-nav__brand,
+.editorial-nav__desktop-links a,
+.editorial-nav__method,
+.editorial-nav__start,
+.nav-language-toggle,
+.nav-menu-toggle {
+  transition:
+    color var(--motion-fast) ease,
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    opacity var(--motion-fast) ease,
+    translate var(--motion-ui) var(--ease-expo),
+    scale var(--motion-fast) var(--ease-expo);
+}
+
+.editorial-nav__brand:hover .pulse-heart {
+  animation: nav-heart-pulse 620ms var(--ease-expo) both;
+}
+
+@keyframes nav-heart-pulse {
+  0%, 100% { scale: 1; }
+  45% { scale: 1.12; }
+}
+
+.editorial-nav__start[data-magnet-active='true'],
+[data-magnetic][data-magnet-active='true'] {
+  translate: var(--magnet-x, 0) var(--magnet-y, 0);
+}
+
+.editorial-nav__desktop-links a > span {
+  transition: translate var(--motion-ui) var(--ease-expo);
+}
+
+.editorial-nav__desktop-links a:hover > span {
+  translate: 0 -1px;
+}
+
+/* --------------------------------------------------------------------------
+   Contextual route transitions
+   -------------------------------------------------------------------------- */
+
+::view-transition-group(root) {
+  animation-duration: var(--motion-cinematic);
+  animation-timing-function: var(--ease-expo);
+}
+
+::view-transition-old(root) {
+  animation: ep-route-old 380ms var(--ease-in-out-soft) both;
+}
+
+::view-transition-new(root) {
+  animation: ep-route-new 720ms var(--ease-expo) both;
+}
+
+html[data-transition-kind='detail']::view-transition-old(root) {
+  animation: ep-detail-old 420ms var(--ease-in-out-soft) both;
+}
+
+html[data-transition-kind='detail']::view-transition-new(root) {
+  animation: ep-detail-new 760ms var(--ease-expo) both;
+  clip-path: circle(150vmax at var(--transition-x) var(--transition-y));
+}
+
+html[data-transition-kind='home']::view-transition-new(root) {
+  animation: ep-home-new 760ms var(--ease-expo) both;
+}
+
+html[data-transition-kind='lesson']::view-transition-new(root) {
+  animation: ep-lesson-new 620ms var(--ease-expo) both;
+}
+
+::view-transition-group(ecopulse-brand) {
+  animation-duration: 620ms;
+  animation-timing-function: var(--ease-expo);
+}
+
+@keyframes ep-route-old {
+  to { opacity: .12; transform: scale(.996); filter: blur(2px); }
+}
+
+@keyframes ep-route-new {
+  from { opacity: 0; transform: translateY(10px) scale(.998); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+@keyframes ep-detail-old {
+  to { opacity: .45; transform: scale(.992); filter: saturate(.85); }
+}
+
+@keyframes ep-detail-new {
+  from { opacity: 0; clip-path: circle(0 at var(--transition-x) var(--transition-y)); }
+  35% { opacity: 1; }
+  to { opacity: 1; clip-path: circle(150vmax at var(--transition-x) var(--transition-y)); }
+}
+
+@keyframes ep-home-new {
+  from { opacity: 0; transform: translateY(-14px); clip-path: inset(0 0 88% 0 round 0 0 28px 28px); }
+  to { opacity: 1; transform: none; clip-path: inset(0 0 0 0 round 0); }
+}
+
+@keyframes ep-lesson-new {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Hero — one orchestrated opening moment
+   -------------------------------------------------------------------------- */
+
+.home-hero--editorial .home-hero__eyebrow,
+.home-hero--editorial .home-hero__pulse-signature,
+.home-hero--editorial .home-hero__title-line,
+.home-hero--editorial .home-hero__lede,
+.home-hero--editorial .home-hero__actions {
+  animation: none;
+}
+
+.home-hero--editorial .home-hero__eyebrow {
+  animation: ep-copy-reveal 620ms var(--ease-expo) 60ms both;
+}
+
+.home-hero__pulse-signature {
+  animation: ep-copy-reveal 620ms var(--ease-expo) 100ms both;
+}
+
+.home-hero__pulse-signature i {
+  transform-origin: 0 50%;
+  animation: ep-rule-draw 660ms var(--ease-expo) 160ms both;
+}
+
+.home-hero__pulse-signature b {
+  animation: ep-dot-arrive 700ms var(--ease-spring) 300ms both;
+}
+
+.home-hero--editorial .home-hero__title-line {
+  clip-path: inset(0 0 100% 0);
+  transform-origin: 0 100%;
+  animation: ep-line-mask 880ms var(--ease-expo) both;
+}
+
+.home-hero--editorial .home-hero__title-line--1 { animation-delay: 120ms; }
+.home-hero--editorial .home-hero__title-line--2 { animation-delay: 200ms; }
+.home-hero--editorial .home-hero__title-line--3 { animation-delay: 280ms; }
+.home-hero--editorial .home-hero__lede { animation: ep-copy-reveal 720ms var(--ease-expo) 390ms both; }
+.home-hero--editorial .home-hero__actions { animation: ep-copy-reveal 720ms var(--ease-expo) 470ms both; }
+
+.home-artifact {
+  animation: ep-artifact-arrive 900ms var(--ease-expo) both;
+  transform-origin: 50% 50%;
+}
+
+.home-artifact--topics { animation-delay: 420ms; }
+.home-artifact--arcade { animation-delay: 500ms; }
+.home-artifact--earth { animation-delay: 560ms; }
+.home-artifact--language { animation-delay: 620ms; }
+.home-artifact--access { animation-delay: 680ms; }
+
+@keyframes ep-copy-reveal {
+  from { opacity: 0; transform: translateY(12px); filter: blur(3px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+@keyframes ep-line-mask {
+  from { opacity: .25; clip-path: inset(0 0 100% 0); transform: translateY(18px) rotate(.4deg); }
+  to { opacity: 1; clip-path: inset(-8% -3% -8% -3%); transform: none; }
+}
+
+@keyframes ep-rule-draw {
+  from { scale: 0 1; opacity: 0; }
+  to { scale: 1 1; opacity: 1; }
+}
+
+@keyframes ep-dot-arrive {
+  from { opacity: 0; scale: .2; }
+  65% { opacity: 1; scale: 1.18; }
+  to { opacity: 1; scale: 1; }
+}
+
+@keyframes ep-artifact-arrive {
+  from { opacity: 0; transform: translateY(22px) scale(.975); filter: blur(5px); }
+  72% { filter: blur(0); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* --------------------------------------------------------------------------
+   Pointer depth — adapted from the supplied Magnet idea but centralized.
+   translate/rotate longhands avoid clobbering component transforms.
+   -------------------------------------------------------------------------- */
+
+@media (hover: hover) and (pointer: fine) {
+  :is(
+    .home-artifact,
+    .topic-card,
+    .learn-topic-atlas__card,
+    .topic-lab__reading-card,
+    .topic-lab__vocab-card,
+    .eco-arcade-hub__mode,
+    .mission-card,
+    .world-challenge-card,
+    .pulse-metrics article,
+    .pulse-balance__grid article,
+    .settings-group,
+    .choice-card
+  ) {
+    transition:
+      translate var(--motion-ui) var(--ease-expo),
+      rotate var(--motion-ui) var(--ease-expo),
+      box-shadow var(--motion-ui) ease,
+      border-color var(--motion-fast) ease,
+      background-color var(--motion-fast) ease;
+  }
+
+  :is(
+    .home-artifact,
+    .topic-card,
+    .learn-topic-atlas__card,
+    .topic-lab__reading-card,
+    .topic-lab__vocab-card,
+    .eco-arcade-hub__mode,
+    .mission-card,
+    .world-challenge-card,
+    .pulse-metrics article,
+    .pulse-balance__grid article,
+    .settings-group,
+    .choice-card
+  )[data-pointer-active='true'] {
+    translate: var(--surface-x, 0) var(--surface-y, 0);
+    rotate: var(--surface-rotate, 0deg);
+    border-color: rgba(23,25,28,.15);
+    will-change: translate, rotate;
+  }
+
+  .home-artifact[data-pointer-active='true'] {
+    box-shadow: 0 28px 54px -30px rgba(23,25,28,.34), 0 8px 22px -13px rgba(23,25,28,.18);
+  }
+
+  :is(.topic-card, .learn-topic-atlas__card, .eco-arcade-hub__mode, .mission-card, .world-challenge-card)[data-pointer-active='true'] {
+    box-shadow: 0 18px 30px -27px rgba(23,25,28,.28);
+  }
+
+  [data-magnetic] {
+    transition: translate var(--motion-ui) var(--ease-expo), scale var(--motion-fast) var(--ease-expo);
+  }
+
+  [data-magnetic]:active {
+    scale: .985;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   In-view choreography — headings and meaningful groups only
+   -------------------------------------------------------------------------- */
+
+html[data-motion-ready='true'] [data-motion-heading='true']:not([data-inview='true']) {
+  opacity: .01;
+  clip-path: inset(0 0 96% 0);
+  translate: 0 14px;
+}
+
+html[data-motion-ready='true'] [data-motion-heading='true'][data-inview='true'] {
+  opacity: 1;
+  clip-path: inset(-8% -2% -8% -2%);
+  translate: 0 0;
+  transition:
+    opacity 420ms ease,
+    clip-path var(--motion-cinematic) var(--ease-expo),
+    translate var(--motion-cinematic) var(--ease-expo);
+}
+
+html[data-motion-ready='true'] [data-motion-group='true']:not([data-inview='true']) > * {
+  opacity: 0;
+  translate: 0 16px;
+}
+
+html[data-motion-ready='true'] [data-motion-group='true'][data-inview='true'] > * {
+  animation: ep-group-item-in 660ms var(--ease-expo) both;
+  animation-delay: calc(var(--motion-index, 0) * 58ms);
+}
+
+@keyframes ep-group-item-in {
+  from { opacity: 0; translate: 0 16px; filter: blur(2px); }
+  to { opacity: 1; translate: 0 0; filter: blur(0); }
+}
+
+[data-motion-progress='true'] > i,
+[data-motion-progress='true'] :is(.pulse-balance__track, .world-challenge-list__progress-track, .mission-list__progress-track) > i {
+  transform-origin: 0 50%;
+}
+
+html[data-motion-ready='true'] [data-motion-progress='true']:not([data-inview='true']) > i,
+html[data-motion-ready='true'] [data-motion-progress='true']:not([data-inview='true']) :is(.pulse-balance__track, .world-challenge-list__progress-track, .mission-list__progress-track) > i {
+  scale: .04 1;
+}
+
+html[data-motion-ready='true'] [data-motion-progress='true'][data-inview='true'] > i,
+html[data-motion-ready='true'] [data-motion-progress='true'][data-inview='true'] :is(.pulse-balance__track, .world-challenge-list__progress-track, .mission-list__progress-track) > i {
+  scale: 1 1;
+  transition: scale 920ms var(--ease-expo) 90ms;
+}
+
+/* Button/arrow kinetics and answer-state feedback. */
+:is(.button, .topic-card__action, .world-challenge-card__action a, .home-artifact--access a) {
+  transition:
+    translate var(--motion-ui) var(--ease-expo),
+    scale var(--motion-fast) var(--ease-expo),
+    color var(--motion-fast) ease,
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease;
+}
+
+:is(.button, .arcade-choice, .choice-card, .topic-lab__quick-check-option, .topic-lab__reading-check-option, .topic-lab__system-option):active {
+  scale: .985;
+}
+
+:is(.arcade-choice--correct, .topic-lab__system-option--correct, .topic-lab__reading-check-option--correct) {
+  animation: ep-answer-correct 520ms var(--ease-spring) both;
+}
+
+:is(.arcade-choice--wrong, .topic-lab__system-option--wrong, .topic-lab__reading-check-option--wrong) {
+  animation: ep-answer-resist 360ms var(--ease-standard) both;
+}
+
+@keyframes ep-answer-correct {
+  0% { scale: 1; }
+  45% { scale: 1.018; }
+  100% { scale: 1; }
+}
+
+@keyframes ep-answer-resist {
+  0%, 100% { translate: 0 0; }
+  30% { translate: -2px 0; }
+  65% { translate: 2px 0; }
+}
+
+/* Scroll-linked depth is progressive enhancement, intentionally tiny. */
+@supports (animation-timeline: view()) {
+  .home-artifact--earth .earth-limb {
+    animation: ep-earth-depth linear both;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+  }
+
+  .connection-preview__visual,
+  .topic-lab__visual,
+  .pulse-focus-compass__dial {
+    animation: ep-visual-depth linear both;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+  }
+
+  @keyframes ep-earth-depth {
+    from { scale: 1.025; translate: 0 4px; }
+    50% { scale: 1; translate: 0 0; }
+    to { scale: .985; translate: 0 -5px; }
+  }
+
+  @keyframes ep-visual-depth {
+    from { translate: 0 8px; }
+    50% { translate: 0 0; }
+    to { translate: 0 -8px; }
+  }
+}
+
+/* Mobile menu choreography is a paper sheet, not a generic fade modal. */
+.editorial-nav__mobile-panel {
+  transform-origin: 92% 3%;
+  animation: ep-mobile-sheet-in 520ms var(--ease-expo) both;
+}
+
+.editorial-nav__mobile-links a {
+  animation: ep-mobile-link-in 520ms var(--ease-expo) both;
+  animation-delay: calc(95ms + (var(--nav-index, 0) * 52ms));
+}
+
+.editorial-nav__mobile-footer {
+  animation: ep-copy-reveal 520ms var(--ease-expo) 360ms both;
+}
+
+@keyframes ep-mobile-sheet-in {
+  from { opacity: 0; clip-path: circle(2% at 94% 4%); }
+  to { opacity: 1; clip-path: circle(145% at 94% 4%); }
+}
+
+@keyframes ep-mobile-link-in {
+  from { opacity: 0; translate: 0 12px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* Touch devices intentionally remove hover-depth and magnetic behavior. */
+@media (hover: none), (pointer: coarse) {
+  [data-pointer-active='true'],
+  [data-magnet-active='true'] {
+    translate: 0 0 !important;
+    rotate: 0deg !important;
+  }
+
+  .site-scroll-progress {
+    height: 1.5px;
+  }
+}
+
+@media (prefers-reduced-data: reduce) {
+  .home-hero__wash,
+  .home-hero__pulse-signature,
+  .site-scroll-progress {
+    display: none;
+  }
+
+  .home-artifact,
+  .connection-preview__visual,
+  .topic-lab__visual,
+  .pulse-focus-compass__dial {
+    animation: none !important;
+    translate: 0 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-group(root),
+  ::view-transition-group(ecopulse-brand),
+  .home-hero--editorial .home-hero__eyebrow,
+  .home-hero__pulse-signature,
+  .home-hero__pulse-signature i,
+  .home-hero__pulse-signature b,
+  .home-hero--editorial .home-hero__title-line,
+  .home-hero--editorial .home-hero__lede,
+  .home-hero--editorial .home-hero__actions,
+  .home-artifact,
+  .editorial-nav__mobile-panel,
+  .editorial-nav__mobile-links a,
+  .editorial-nav__mobile-footer,
+  [data-motion-group='true'] > *,
+  [data-motion-heading='true'] {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    opacity: 1 !important;
+    transform: none !important;
+    translate: 0 !important;
+    rotate: 0deg !important;
+    clip-path: none !important;
+    filter: none !important;
+  }
+}
+
+html[data-motion='reduced'] ::view-transition-old(root),
+html[data-motion='reduced'] ::view-transition-new(root),
+html[data-motion='reduced'] .home-hero--editorial .home-hero__eyebrow,
+html[data-motion='reduced'] .home-hero__pulse-signature,
+html[data-motion='reduced'] .home-hero--editorial .home-hero__title-line,
+html[data-motion='reduced'] .home-hero--editorial .home-hero__lede,
+html[data-motion='reduced'] .home-hero--editorial .home-hero__actions,
+html[data-motion='reduced'] .home-artifact,
+html[data-motion='reduced'] .editorial-nav__mobile-panel,
+html[data-motion='reduced'] [data-motion-group='true'] > *,
+html[data-motion='reduced'] [data-motion-heading='true'] {
+  animation: none !important;
+  transition-duration: .01ms !important;
+  opacity: 1 !important;
+  transform: none !important;
+  translate: 0 !important;
+  rotate: 0deg !important;
+  clip-path: none !important;
+  filter: none !important;
+}
+
+/* ========================================================================== 
+   Product micro-motion pass — motion explains state changes rather than
+   decorating every section.
+   ========================================================================== */
+
+/* Sliding language thumb: one shared moving surface instead of two flashing buttons. */
+.nav-language-toggle {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.nav-language-toggle::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: inherit;
+  background: white;
+  box-shadow: 0 1px 0 rgba(0,0,0,.025), 0 4px 12px rgba(0,0,0,.055);
+  translate: 0 0;
+  transition: translate var(--motion-ui) var(--ease-expo);
+}
+
+.nav-language-toggle:has(button:nth-child(2)[aria-pressed='true'])::before {
+  translate: 100% 0;
+}
+
+.nav-language-toggle button[aria-pressed='true'] {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Filter and tab state changes use a short physical acknowledgement. */
+:is(
+  .world-challenge-list__filters button,
+  .mission-list__filters button,
+  .settings-options button,
+  .eco-arcade-tabs button
+) {
+  transition:
+    color var(--motion-fast) ease,
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    scale var(--motion-fast) var(--ease-expo),
+    box-shadow var(--motion-fast) ease;
+}
+
+:is(
+  .world-challenge-list__filters button,
+  .mission-list__filters button,
+  .settings-options button
+)[aria-pressed='true'],
+.eco-arcade-tabs button[aria-selected='true'] {
+  animation: ep-control-select 380ms var(--ease-spring) both;
+}
+
+@keyframes ep-control-select {
+  0% { scale: .97; }
+  60% { scale: 1.015; }
+  100% { scale: 1; }
+}
+
+/* Lesson step continuity: the newly mounted stage arrives from the direction of progress. */
+.lesson-step-focus {
+  animation: ep-lesson-step-in 560ms var(--ease-expo) both;
+}
+
+@keyframes ep-lesson-step-in {
+  from { opacity: .15; translate: 10px 0; filter: blur(3px); }
+  to { opacity: 1; translate: 0 0; filter: blur(0); }
+}
+
+.lesson-header__progress-track > i {
+  transition: width 560ms var(--ease-expo);
+}
+
+.lesson-header__xp .pulse-heart {
+  transition: scale var(--motion-ui) var(--ease-spring);
+}
+
+.lesson-header__xp:hover .pulse-heart { scale: 1.1; }
+
+/* Focus is a first-class interaction state. */
+:is(
+  .editorial-nav a,
+  .editorial-nav button,
+  .button,
+  .topic-card,
+  .learn-topic-atlas__card,
+  .world-challenge-card a,
+  .mission-card button,
+  .eco-arcade-tabs button,
+  .arcade-choice,
+  .choice-card,
+  .review-options button,
+  .settings-options button
+):focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--ep-green) 68%, var(--ep-ink));
+  outline-offset: 4px;
+}
+
+/* Links expose direction with a tiny content motion, not a permanent decoration. */
+:is(.text-link, .topic-card__action, .world-challenge-card__action a, .pulse-settings-link) {
+  position: relative;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is(.text-link, .topic-card__action, .world-challenge-card__action a, .pulse-settings-link):hover {
+    translate: 3px 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .lesson-step-focus {
+    animation-name: ep-lesson-step-in-mobile;
+    animation-duration: 460ms;
+  }
+
+  @keyframes ep-lesson-step-in-mobile {
+    from { opacity: .2; translate: 0 8px; filter: blur(2px); }
+    to { opacity: 1; translate: 0 0; filter: blur(0); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-language-toggle::before,
+  .lesson-step-focus,
+  :is(.world-challenge-list__filters button, .mission-list__filters button, .settings-options button)[aria-pressed='true'],
+  .eco-arcade-tabs button[aria-selected='true'] {
+    animation: none !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* Shared topic artifact transitions: the card becomes the destination instrument. */
+::view-transition-group(topic-climate-change),
+::view-transition-group(topic-recycling),
+::view-transition-group(topic-ocean-pollution),
+::view-transition-group(topic-deforestation),
+::view-transition-group(topic-water-conservation),
+::view-transition-group(topic-biodiversity),
+::view-transition-group(topic-renewable-energy),
+::view-transition-group(topic-sustainable-consumption) {
+  animation: ep-topic-artifact 760ms var(--ease-expo) both;
+  overflow: clip;
+  border-radius: var(--ep-radius-artifact);
+}
+
+::view-transition-old(topic-climate-change),
+::view-transition-old(topic-recycling),
+::view-transition-old(topic-ocean-pollution),
+::view-transition-old(topic-deforestation),
+::view-transition-old(topic-water-conservation),
+::view-transition-old(topic-biodiversity),
+::view-transition-old(topic-renewable-energy),
+::view-transition-old(topic-sustainable-consumption) {
+  animation: ep-topic-artifact-old 520ms var(--ease-in-out-soft) both;
+}
+
+::view-transition-new(topic-climate-change),
+::view-transition-new(topic-recycling),
+::view-transition-new(topic-ocean-pollution),
+::view-transition-new(topic-deforestation),
+::view-transition-new(topic-water-conservation),
+::view-transition-new(topic-biodiversity),
+::view-transition-new(topic-renewable-energy),
+::view-transition-new(topic-sustainable-consumption) {
+  animation: ep-topic-artifact-new 760ms var(--ease-expo) both;
+}
+
+@keyframes ep-topic-artifact {
+  from { filter: saturate(.88); }
+  to { filter: saturate(1); }
+}
+
+@keyframes ep-topic-artifact-old {
+  to { opacity: .18; filter: blur(3px); }
+}
+
+@keyframes ep-topic-artifact-new {
+  from { opacity: .4; filter: blur(4px); }
+  to { opacity: 1; filter: blur(0); }
+}

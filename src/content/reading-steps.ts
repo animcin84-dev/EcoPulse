@@ -1,0 +1,188 @@
+import type { ReadingStep } from '../domain/content/types.ts';
+
+export const readingStepsByLessonSlug = {
+  atmosphere: {
+    id: 'reading-atmosphere',
+    type: 'reading',
+    title: { en: 'Above Our Heads', kk: 'Біздің үстімізде' },
+    passages: {
+      A2: 'Earth is surrounded by the atmosphere. This layer contains the air around us. Clouds, wind, and rain happen inside it. The atmosphere seems very large to people, but compared with Earth, it is a thin layer around the planet.',
+      B1: 'Earth is surrounded by an atmosphere made of gases. This layer contains the air we breathe, and most clouds, wind, and rain form inside it. From the ground the atmosphere can feel enormous, but compared with the whole planet it is relatively thin. It connects everyday weather with the larger Earth system.',
+      B2: 'Earth’s atmosphere is a mixture of gases surrounding the planet. It supports life, contains the air we breathe, and is the region where most familiar weather develops. Although it extends far above the surface, it is thin relative to Earth’s size. Thinking of the atmosphere as part of a connected system helps explain why changes in temperature, moisture, and circulation can influence weather patterns.',
+    },
+    question: 'Which statement best summarizes the passage?',
+    answers: [
+      { id: 'system', text: 'The atmosphere is a relatively thin layer of gases around Earth where familiar weather develops.' },
+      { id: 'ocean', text: 'The atmosphere is a deep layer of ocean water below Earth’s surface.' },
+      { id: 'mountains', text: 'The atmosphere describes only the shape and height of mountains.' },
+    ],
+    correctAnswerId: 'system',
+    explanation: {
+      en: 'The passage describes the atmosphere as a relatively thin layer of gases around Earth and connects it with weather.',
+      kk: 'Мәтінде атмосфера Жерді қоршаған салыстырмалы жұқа газ қабаты ретінде сипатталып, ауа райымен байланыстырылған.',
+    },
+    masterySignals: [{ word: 'atmosphere', signal: 'context' }],
+    xp: 10,
+  },
+  'weather-climate': {
+    id: 'reading-weather-climate',
+    type: 'reading',
+    title: { en: 'One Day Is Not a Climate', kk: 'Бір күн — климат емес' },
+    passages: {
+      A2: 'Weather tells us what the air is like now or today. It can be rainy, windy, hot, or cold. Climate is different. Climate describes the usual weather patterns of a place over many years, so one unusual day cannot describe the climate.',
+      B1: 'Weather describes short-term conditions in the atmosphere, such as today’s rain, wind, or temperature. Climate describes patterns that appear across many years. A cold afternoon is therefore evidence about weather at that time, not enough evidence to describe a long-term climate trend. Scientists compare observations over much longer periods.',
+      B2: 'Weather and climate use some of the same measurements, including temperature and rainfall, but they answer questions on different time scales. Weather describes conditions over short periods, while climate summarizes longer-term patterns and variability. A single hot or cold day can be unusual without defining a climate trend, which is why long records are needed when scientists evaluate climatic change.',
+    },
+    question: 'What distinction is central to the passage?',
+    answers: [
+      { id: 'time', text: 'Weather is short-term, while climate describes longer-term patterns.' },
+      { id: 'same', text: 'Weather and climate are two words for exactly the same time scale.' },
+      { id: 'season', text: 'Climate describes only winter, while weather describes only summer.' },
+    ],
+    correctAnswerId: 'time',
+    explanation: {
+      en: 'Time scale is the key distinction: weather is short-term, while climate is based on longer-term patterns.',
+      kk: 'Негізгі айырмашылық — уақыт ауқымы: ауа райы қысқа мерзімді, ал климат ұзақ мерзімді заңдылықтарға негізделеді.',
+    },
+    masterySignals: [{ word: 'weather', signal: 'context' }, { word: 'climate', signal: 'context' }],
+    xp: 10,
+  },
+  glaciers: {
+    id: 'reading-glaciers',
+    type: 'reading',
+    title: { en: 'Ice That Moves', kk: 'Қозғалатын мұз' },
+    passages: {
+      A2: 'A glacier is a large mass of ice on land. It forms from snow that builds up over many years. Glacier ice can move slowly. When the ice becomes warm enough, some of it can melt and change from solid ice into liquid water.',
+      B1: 'Glaciers are large masses of land ice that form where snow builds up and is compressed over many years. They may look still, but glacier ice moves slowly under its own weight. When conditions are warm enough, ice at the surface can melt. This change of state turns solid ice into liquid water.',
+      B2: 'A glacier develops where long-term snow accumulation is great enough for older snow to compress into dense ice. Gravity causes that ice mass to flow slowly across the land, even when the movement is difficult to notice. Melting occurs when ice gains enough heat to change state from solid to liquid, so glacier change depends on both accumulation and loss over time.',
+    },
+    question: 'Which statement matches the passage?',
+    answers: [
+      { id: 'moving-ice', text: 'A glacier is land ice formed over time that can move slowly and can melt.' },
+      { id: 'storm', text: 'A glacier is a fast-moving winter storm made mainly of wind.' },
+      { id: 'ocean', text: 'A glacier forms only from salt water moving through the ocean.' },
+    ],
+    correctAnswerId: 'moving-ice',
+    explanation: {
+      en: 'Glaciers form from accumulated snow on land, move slowly, and can melt when ice gains enough heat.',
+      kk: 'Мұздықтар құрлықта жиналған қардан түзіледі, баяу қозғалады және мұз жеткілікті жылу алғанда ери алады.',
+    },
+    masterySignals: [{ word: 'glacier', signal: 'context' }, { word: 'melt', signal: 'context' }],
+    xp: 10,
+  },
+  'sea-level': {
+    id: 'reading-sea-level',
+    type: 'reading',
+    title: { en: 'Water at the Coast', kk: 'Жағалаудағы су' },
+    passages: {
+      A2: 'Sea level is the level of the sea surface. Water from melting land ice can enter the ocean and help sea level rise. Warmer ocean water can also expand. For coastal places, changes in sea level can affect flood risk and future planning.',
+      B1: 'Sea level describes the average height of the sea surface. It can change for more than one reason. When glaciers and other land ice melt, extra water can enter the ocean. Ocean water also expands as it warms. Because many communities are near the coast, planners use sea-level information when thinking about future flood risk.',
+      B2: 'Global sea level responds to several physical processes. Melting glaciers and ice sheets on land add water to the ocean, while warming seawater expands and occupies more volume. Local coastlines can experience additional effects, so sea-level risk is not identical everywhere. Reliable planning therefore combines long-term observations, regional information, and careful assessment of exposed infrastructure and communities.',
+    },
+    question: 'Which statement is supported by the passage?',
+    answers: [
+      { id: 'multiple', text: 'Land-ice melt and ocean warming can both contribute to sea-level change.' },
+      { id: 'wind-only', text: 'Sea level changes only because wind pushes water toward the coast.' },
+      { id: 'same-everywhere', text: 'Every coastline experiences exactly the same sea-level risk.' },
+    ],
+    correctAnswerId: 'multiple',
+    explanation: {
+      en: 'The passage identifies both added water from melting land ice and expansion of warming seawater as contributors to sea-level change.',
+      kk: 'Мәтінде теңіз деңгейінің өзгеруіне құрлық мұзының еруінен қосылатын су да, жылынған теңіз суының кеңеюі де үлес қосатыны айтылады.',
+    },
+    masterySignals: [{ word: 'sea level', signal: 'context' }, { word: 'coast', signal: 'context' }],
+    xp: 10,
+  },
+  drought: {
+    id: 'reading-drought',
+    type: 'reading',
+    title: { en: 'Less Than Usual', kk: 'Әдеттегіден аз' },
+    passages: {
+      A2: 'A drought is a long period with much less rainfall than usual. It does not always mean there is no rain at all. If low rainfall continues, soil, rivers, reservoirs, and water supplies can become drier, creating problems for people and ecosystems.',
+      B1: 'Drought develops when a place experiences unusually low water availability over an extended period, often linked with lower-than-normal rainfall. A drought does not require absolutely zero rain. Its effects can build over time as soils dry, reservoirs fall, and less water is available for people, agriculture, and ecosystems.',
+      B2: 'Drought is best understood as a sustained shortage relative to normal conditions rather than simply “no rain.” Precipitation deficits can interact with temperature, evaporation, soil moisture, streamflow, and water demand. Because these factors operate over different time scales, scientists use several indicators to describe drought conditions and their effects on ecosystems, agriculture, and water supplies.',
+    },
+    question: 'What does the passage emphasize about drought?',
+    answers: [
+      { id: 'relative', text: 'Drought is a sustained shortage relative to usual conditions and does not require zero rain.' },
+      { id: 'hour', text: 'Any single dry hour is enough to define a drought.' },
+      { id: 'snow', text: 'Drought means a place receives unusually heavy snowfall.' },
+    ],
+    correctAnswerId: 'relative',
+    explanation: {
+      en: 'Drought is about sustained shortage relative to normal conditions; some rain can still occur during a drought.',
+      kk: 'Құрғақшылық қалыпты жағдаймен салыстырғандағы ұзаққа созылған тапшылықты білдіреді; құрғақшылық кезінде де жаңбыр жаууы мүмкін.',
+    },
+    masterySignals: [{ word: 'drought', signal: 'context' }, { word: 'rainfall', signal: 'context' }],
+    xp: 10,
+  },
+  'wildfire-extreme-weather': {
+    id: 'reading-wildfire-risk',
+    type: 'reading',
+    title: { en: 'Risk Is Not Certainty', kk: 'Қауіп — кепілдік емес' },
+    passages: {
+      A2: 'A wildfire is a large uncontrolled fire in natural vegetation. Hot, dry, and windy weather can make fire danger higher because vegetation may burn more easily and fire can spread faster. These conditions increase risk, but they do not guarantee that a wildfire will start.',
+      B1: 'Wildfire risk depends on several conditions. Drought and heat can dry vegetation, while strong wind can help a fire spread after ignition. These factors can raise fire danger, but they do not automatically create a wildfire. Understanding risk means separating conditions that make an event more likely from a statement that the event is certain.',
+      B2: 'Wildfire behavior emerges from several interacting factors, including available fuel, fuel moisture, weather, terrain, and ignition. Drought and heat can reduce moisture in vegetation, while wind can accelerate spread once a fire begins. Saying that these conditions increase wildfire risk is therefore more accurate than claiming they directly guarantee a fire. Risk describes probability, not certainty.',
+    },
+    question: 'Which conclusion best matches the passage?',
+    answers: [
+      { id: 'risk', text: 'Hot, dry, windy conditions can increase wildfire risk without guaranteeing a fire.' },
+      { id: 'guarantee', text: 'Dry weather always causes a wildfire immediately.' },
+      { id: 'unrelated', text: 'Weather conditions have no relationship to wildfire behavior.' },
+    ],
+    correctAnswerId: 'risk',
+    explanation: {
+      en: 'Several factors influence wildfire behavior. Conditions can increase risk without making a wildfire certain.',
+      kk: 'Табиғи өрттің таралуына бірнеше фактор әсер етеді. Кей жағдайлар қауіпті арттыруы мүмкін, бірақ өрттің міндетті түрде болатынын білдірмейді.',
+    },
+    masterySignals: [{ word: 'wildfire', signal: 'context' }, { word: 'extreme weather', signal: 'context' }],
+    xp: 10,
+  },
+  habitats: {
+    id: 'reading-habitats',
+    type: 'reading',
+    title: { en: 'Nothing Lives Alone', kk: 'Ештеңе жалғыз өмір сүрмейді' },
+    passages: {
+      A2: 'A habitat is the natural place where an organism lives. A wetland, forest, river, or desert can be a habitat. Living things also interact with water, soil, plants, animals, and other parts of their environment. Together these relationships form an ecosystem.',
+      B1: 'A habitat provides the conditions and resources an organism needs to live, such as food, water, shelter, and space. Habitats are not isolated from the wider environment. In an ecosystem, organisms interact with one another and with non-living factors such as water and soil. Changing one part of this network can affect other parts.',
+      B2: 'Habitat describes the environment in which an organism lives, but ecological systems extend beyond a single species or location. Ecosystems include interactions among organisms as well as non-living conditions such as water, soil, light, and temperature. Because these relationships form networks rather than simple chains, habitat change can have different effects across species and across time.',
+    },
+    question: 'What is the main systems idea in the passage?',
+    answers: [
+      { id: 'network', text: 'Habitats are part of connected ecosystems where living and non-living factors interact.' },
+      { id: 'isolated', text: 'Every habitat is completely isolated from water, soil, and other organisms.' },
+      { id: 'animals-only', text: 'An ecosystem contains animals but no non-living environmental conditions.' },
+    ],
+    correctAnswerId: 'network',
+    explanation: {
+      en: 'The passage treats habitat as part of a wider ecosystem of interacting living and non-living factors.',
+      kk: 'Мәтінде мекен ету ортасы тірі және өлі табиғат факторлары өзара әрекеттесетін кеңірек экожүйенің бөлігі ретінде қарастырылады.',
+    },
+    masterySignals: [{ word: 'habitat', signal: 'context' }, { word: 'ecosystem', signal: 'context' }],
+    xp: 10,
+  },
+  'ocean-change': {
+    id: 'reading-ocean-change',
+    type: 'reading',
+    title: { en: 'More Acidic, Not Acid', kk: 'Қышқылдырақ, бірақ қышқыл емес' },
+    passages: {
+      A2: 'The ocean absorbs some carbon dioxide from the atmosphere. This can change seawater chemistry. Scientists say seawater becomes more acidic when its pH decreases. This does not mean the ocean becomes a strong acid. The words “more acidic” describe a change in chemistry.',
+      B1: 'The ocean naturally exchanges carbon dioxide with the atmosphere and absorbs part of the carbon dioxide added to the air. This changes seawater chemistry and lowers pH, a process called ocean acidification. The phrase means the water becomes more acidic than before; it does not mean the ocean changes into a literal acid.',
+      B2: 'When seawater absorbs additional carbon dioxide, chemical reactions change the balance of dissolved carbon compounds and increase hydrogen ion concentration, lowering pH. Scientists call this process ocean acidification. Average seawater remains alkaline, but it becomes more acidic relative to its previous state. Precise language matters because “more acidic” describes a measurable shift without falsely implying that the ocean becomes literal acid.',
+    },
+    question: 'Which wording is scientifically accurate according to the passage?',
+    answers: [
+      { id: 'more-acidic', text: 'Ocean acidification means seawater becomes more acidic as pH decreases; it does not become literal acid.' },
+      { id: 'literal-acid', text: 'Ocean acidification means the entire ocean turns into a strong literal acid.' },
+      { id: 'no-chemistry', text: 'Absorbing carbon dioxide cannot change seawater chemistry or pH.' },
+    ],
+    correctAnswerId: 'more-acidic',
+    explanation: {
+      en: 'Ocean acidification describes a decrease in pH and a shift toward more acidic conditions, not conversion of seawater into literal acid.',
+      kk: 'Мұхиттың қышқылдануы pH төмендеп, судың қышқылдырақ болуын білдіреді; бұл теңіз суының кәдімгі қышқылға айналуы емес.',
+    },
+    masterySignals: [{ word: 'acidic', signal: 'context' }, { word: 'ocean', signal: 'context' }],
+    xp: 10,
+  },
+} satisfies Record<string, ReadingStep>;

@@ -1,0 +1,90 @@
+/* MAX continuation accessibility and device capability guards. Loaded last. */
+
+@media (prefers-contrast: more) {
+  :root { --line-dark: rgba(23,49,38,.42); --line-light: rgba(255,255,255,.46); }
+  .button,
+  .topic-card,
+  .topic-lab__vocab-card,
+  .topic-lab__system-option,
+  .topic-lab__reading-check-option,
+  .arcade-choice,
+  .mission-card,
+  .world-challenge-card { border-width: 2px; }
+  .eyebrow,
+  .topic-lab__overview,
+  .topic-lab__section-heading > p,
+  .pulse-focus-compass__copy > p:not(.eyebrow) { color: var(--ink); }
+}
+
+@media (forced-colors: active) {
+  *, *::before, *::after { box-shadow: none !important; text-shadow: none !important; }
+  .home-hero--sunlit,
+  .topic-lab__hero,
+  .topic-lab__briefing,
+  .topic-lab__reading,
+  .topic-lab__reading-check,
+  .topic-lab__words,
+  .topic-lab__connections,
+  .topic-lab__system-check,
+  .eco-arcade-stage,
+  .action-cockpit,
+  .pulse-focus-compass { background: Canvas !important; color: CanvasText !important; }
+  .button,
+  .topic-lab__rail,
+  .topic-lab__system-option,
+  .topic-lab__reading-check-option,
+  .arcade-choice,
+  .mission-list__filters button,
+  .world-challenge-list__filters button { border: 1px solid ButtonText !important; forced-color-adjust: auto; }
+  .topic-lab__system-option--correct,
+  .topic-lab__reading-check-option--correct,
+  .arcade-choice--correct { outline: 3px solid Highlight; outline-offset: -4px; }
+  .topic-lab__system-option--wrong,
+  .topic-lab__reading-check-option--wrong,
+  .arcade-choice--wrong { text-decoration: line-through; text-decoration-thickness: 2px; }
+  .pulse-focus-compass__dial > i::after,
+  .arcade-session-meter__track i,
+  .mission-list__progress-track i,
+  .world-challenge-list__progress-track i { background: Highlight !important; }
+}
+
+@media (pointer: coarse) {
+  button,
+  .button,
+  .text-link,
+  .topic-lab__rail a,
+  .app-nav__links a { min-height: 48px; }
+  .topic-card:hover,
+  .topic-lab__vocab-card:hover,
+  .app-nav__challenge-shortcut:hover { transform: none; }
+  .topic-lab__rail a { padding-inline: 16px; }
+}
+
+@media (prefers-reduced-data: reduce) {
+  .home-hero__aurora,
+  .home-welcome::before,
+  .home-topics::after,
+  .topic-lab__visual::after,
+  .topic-lab__reading::after,
+  .action-cockpit__visual::before,
+  .product-page--explore-sunlit .explore-hero::after { display: none !important; }
+  .earth-limb .institutional-media,
+  .institutional-media--decorative { background-image: none !important; }
+  .topic-lab__orbit,
+  .topic-lab__particle,
+  .pulse-dial__orbit,
+  .pulse-heart { animation: none !important; }
+}
+
+@media (max-width: 700px) {
+  .app-nav__links { padding-bottom: max(env(safe-area-inset-bottom), 4px); }
+  .app-nav { padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+  body { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+@supports (overflow: clip) {
+  .topic-lab__hero,
+  .topic-lab__briefing,
+  .topic-lab__system-check,
+  .eco-arcade-stage { overflow: clip; }
+}
